@@ -87,4 +87,11 @@ public class TokenController {
         logger.info("The tokens of patient of ID {} has been successfully retrieved", id);
         return new ResponseEntity<>(tokens, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteToken(@PathVariable ("id") int id) {
+        tokenService.deleteToken(id);
+        logger.info("Token with id {} successfully deleted from the database",id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

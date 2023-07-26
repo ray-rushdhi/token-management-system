@@ -105,6 +105,15 @@ public class TokenService {
         }
     }
 
+    public void deleteToken(int id){
+        try{
+            tokenRepository.deleteTokenByTokenNum(id);
+        }catch (TokenNotFoundException e){
+            logger.error("Token with ID {} has not been found", id);
+            throw new TokenNotFoundException("Token not found");
+        }
+    }
+
     public Token updateToken(Token token) {
         // Check if the token exists in the database
         Token existingToken = tokenRepository.findById(token.getId())

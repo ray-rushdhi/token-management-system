@@ -16,5 +16,5 @@ public interface TokenRepository extends MongoRepository<Token, String> {
     List<Token> findBySelectedDay(LocalDate selectedDay);
     List<Token> findByReservedByID(int reservedBy);
     List<Token> findBySelectedDayAndState(LocalDate selectedDay, TokenState state);
-
+    void deleteTokenByTokenNum(int id);
 }
