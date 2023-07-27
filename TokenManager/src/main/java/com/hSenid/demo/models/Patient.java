@@ -21,13 +21,10 @@ public class Patient implements Serializable {
 
     @Id
     private int id;
-    private String name;
-    private Integer age;
+    private String firstName;
+    private String email;
+    private String lastName;
     private Gender gender;
     private LocalDate dob;
     private Long contactNum;
-    private String email;
-    private String address;
-    private String medHistory;
-    private String allergies;
 }
