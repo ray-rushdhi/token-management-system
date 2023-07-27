@@ -81,7 +81,7 @@ public class TokenController {
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
-    @GetMapping("/User/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<List<Token>> getTokenByUser(@PathVariable("id") int id) {
         List<Token> tokens = tokenService.getTokensByUser(id);
         logger.info("The tokens of User of ID {} has been successfully retrieved", id);
