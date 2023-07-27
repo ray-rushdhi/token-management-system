@@ -1,12 +1,12 @@
 package com.hSenid.demo.services;
 
-import com.hSenid.demo.exception.PatientNotFoundException;
+import com.hSenid.demo.exception.UserNotFoundException;
 import com.hSenid.demo.exception.TokenInUseException;
 import com.hSenid.demo.exception.TokenNotFoundException;
-import com.hSenid.demo.models.Patient;
+import com.hSenid.demo.models.User;
 import com.hSenid.demo.models.Token;
 import com.hSenid.demo.models.TokenState;
-import com.hSenid.demo.repository.PatientRepository;
+import com.hSenid.demo.repository.UserRepository;
 import com.hSenid.demo.repository.TokenRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,11 +22,11 @@ public class TokenService {
 
     private final TokenRepository tokenRepository;
 
-    private final PatientRepository patientRepository;
+    private final UserRepository UserRepository;
 
-    public TokenService(TokenRepository tokenRepository, PatientRepository patientRepository) {
+    public TokenService(TokenRepository tokenRepository, UserRepository UserRepository) {
         this.tokenRepository = tokenRepository;
-        this.patientRepository = patientRepository;
+        this.UserRepository = UserRepository;
     }
 
     public List<Token> getAllTokens() {
@@ -64,13 +64,13 @@ public class TokenService {
         Token firstAvailableToken = availableTokens.get(0);
         firstAvailableToken.setState(TokenState.RESERVED);
         firstAvailableToken.setReservedByID(reservedByID);
-        firstAvailableToken.setReservedByName(patientRepository.findPatientById(reservedByID).get().getFirstName()+
-                " "+patientRepository.findPatientById(reservedByID).get().getLastName());
+        firstAvailableToken.setReservedByName(UserRepository.findUserById(reservedByID).get().getFirstName()+
+                " "+UserRepository.findUserById(reservedByID).get().getLastName());
 
         // Save the updated token to the database
         tokenRepository.save(firstAvailableToken);
 
-        logger.info("The token has been reserved for the patient with ID: " + reservedByID);
+        logger.info("The token has been reserved for the User with ID: " + reservedByID);
 
     }
 
@@ -147,11 +147,11 @@ public class TokenService {
         return tokenRepository.findBySelectedDay(date);
     }
 
-    public List<Token> getTokensByPatient(int reservedBy) {
-        Patient patient = patientRepository.findPatientById(reservedBy)
+    public List<Token> getTokensByUser(int reservedBy) {
+        User User = UserRepository.findUserById(reservedBy)
                 .orElseThrow(() -> {
-                    logger.info("Patient with ID {} has not been found", patientRepository.findPatientById(reservedBy));
-                    return new PatientNotFoundException("Patient not found");
+                    logger.info("User with ID {} has not been found", UserRepository.findUserById(reservedBy));
+                    return new UserNotFoundException("User not found");
                 });
         return tokenRepository.findByReservedByID(reservedBy);
     }

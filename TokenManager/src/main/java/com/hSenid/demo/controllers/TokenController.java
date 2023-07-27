@@ -63,7 +63,7 @@ public class TokenController {
     @GetMapping("/date/{date}")
     public ResponseEntity<List<Token>> findByDate(@PathVariable("date") LocalDate date) {
         List<Token> tokens = tokenService.getTokensByDate(date);
-        logger.info("Patients reserved for the date {} have been successfully retrieved",date);
+        logger.info("Users reserved for the date {} have been successfully retrieved",date);
         return new ResponseEntity<>(tokens, HttpStatus.CREATED);
     }
 
@@ -81,10 +81,10 @@ public class TokenController {
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
-    @GetMapping("/patient/{id}")
-    public ResponseEntity<List<Token>> getTokenByPatient(@PathVariable("id") int id) {
-        List<Token> tokens = tokenService.getTokensByPatient(id);
-        logger.info("The tokens of patient of ID {} has been successfully retrieved", id);
+    @GetMapping("/User/{id}")
+    public ResponseEntity<List<Token>> getTokenByUser(@PathVariable("id") int id) {
+        List<Token> tokens = tokenService.getTokensByUser(id);
+        logger.info("The tokens of User of ID {} has been successfully retrieved", id);
         return new ResponseEntity<>(tokens, HttpStatus.OK);
     }
 

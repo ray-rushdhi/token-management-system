@@ -1,14 +1,19 @@
 package com.hSenid.demo.repository;
 
-import java.util.Optional;
-
 import com.hSenid.demo.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends MongoRepository<User, String> {
-  Optional<User> findByUsername(String username);
+import java.util.Optional;
 
-  Boolean existsByUsername(String username);
+@Repository
+public interface UserRepository extends MongoRepository<User,Long> {
+    void deleteUserById(int id);
+    Optional<User> findUserById(int id);
 
-  Boolean existsByEmail(String email);
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+
+    Optional<Object> findByUsername(String username);
 }

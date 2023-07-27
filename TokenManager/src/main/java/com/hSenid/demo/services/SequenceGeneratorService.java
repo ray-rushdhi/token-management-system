@@ -1,6 +1,6 @@
 package com.hSenid.demo.services;
 
-import com.hSenid.demo.models.DBSequencePatients;
+import com.hSenid.demo.models.DBSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -23,11 +23,11 @@ public class SequenceGeneratorService {
         //update the sequence no
         Update update = new Update().inc("seq", 1);
         //update the document
-        DBSequencePatients counter = mongoOperations.findAndModify(
+        DBSequence counter = mongoOperations.findAndModify(
                 query,
                 update,
                 new FindAndModifyOptions().returnNew(true).upsert(true),
-                DBSequencePatients.class
+                DBSequence.class
         );
 
         return !Objects.isNull(counter)? counter.getSeq():1;

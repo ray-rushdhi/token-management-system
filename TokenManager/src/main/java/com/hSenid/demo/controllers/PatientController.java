@@ -1,7 +1,7 @@
 package com.hSenid.demo.controllers;
 
-import com.hSenid.demo.models.Patient;
-import com.hSenid.demo.services.PatientService;
+import com.hSenid.demo.models.User;
+import com.hSenid.demo.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,49 +12,50 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @RestController
-@RequestMapping("/patients")
+@RequestMapping("/Patients")
 public class PatientController {
 
     private static final Logger logger = LoggerFactory.getLogger(PatientController.class);
 
-    private final PatientService patientService;
+    private final UserService userService;
 
-    public PatientController(PatientService patientService) {
-        this.patientService = patientService;
+    public PatientController(UserService userService) {
+        this.userService = userService;
     }
 
+
     @GetMapping("/all")
-    public ResponseEntity<List<Patient>> getAllPatients() {
-        List<Patient> patients = patientService.findAllPatients();
-        logger.info("Successfully accessed all the patients");
-        return new ResponseEntity<>(patients, HttpStatus.OK);
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.findAllUsers();
+        logger.info("Successfully accessed all the Users");
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable ("id") int id) {
-        Patient patient = patientService.findPatientById(id);
-        logger.info("Successfully retrieved {} from the database",patientService.findPatientById(id));
-        return new ResponseEntity<>(patient, HttpStatus.OK);
+    public ResponseEntity<User> getUserById(@PathVariable ("id") int id) {
+        User User = userService.findUserById(id);
+        logger.info("Successfully retrieved {} from the database",userService.findUserById(id));
+        return new ResponseEntity<>(User, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Patient> addPatient(@RequestBody Patient patient) {
-        Patient newPatient = patientService.addPatient(patient);
-        logger.info("Successfully added patient {} to the database",newPatient.getFirstName()+" "+newPatient.getLastName());
-        return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
+    public ResponseEntity<User> addUser(@RequestBody User User) {
+        User newUser = userService.addUser(User);
+        logger.info("Successfully added User {} to the database",newUser.getFirstName()+" "+newUser.getLastName());
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Patient> updatePatient(@RequestBody Patient patient) {
-        Patient updatePatient = patientService.updatePatient(patient);
-        logger.info("Successfully updated patient {}",updatePatient.getFirstName()+" "+updatePatient.getLastName());
-        return new ResponseEntity<>(updatePatient, HttpStatus.OK);
+    public ResponseEntity<User> updateUser(@RequestBody User User) {
+        User updateUser = userService.updateUser(User);
+        logger.info("Successfully updated User {}",updateUser.getFirstName()+" "+updateUser.getLastName());
+        return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deletePatient(@PathVariable ("id") int id) {
-        patientService.deletePatient(id);
-        logger.info("Patient {} successfully deleted from the database",patientService.findPatientById(id));
+    public ResponseEntity<?> deleteUser(@PathVariable ("id") int id) {
+        userService.deleteUser(id);
+        logger.info("User {} successfully deleted from the database",userService.findUserById(id));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

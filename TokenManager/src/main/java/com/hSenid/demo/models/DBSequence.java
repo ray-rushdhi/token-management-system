@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Document(collection = "db_sequence_patients")
-public class DBSequencePatients {
+@Document(collection = "db_sequence")
+public class DBSequence {
     @Id
     private String id;
     private int seq;

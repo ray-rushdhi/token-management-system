@@ -1,5 +1,7 @@
 package com.hSenid.demo.models;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,14 +9,30 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+@Data
+@NoArgsConstructor
 @Document(collection = "users")
-public class User {
+public class User implements Serializable {
+
+  @Transient
+  public static String SEQUENCE_NAME = "user_sequence";
+
   @Id
-  private String id;
+  private int id;
+
+  private String firstName;
+  private String lastName;
+  private Gender gender;
+  private LocalDate dob;
+  private Long contactNum;
 
   @NotBlank
   @Size(max = 20)
@@ -32,52 +50,20 @@ public class User {
   @DBRef
   private Set<Role> roles = new HashSet<>();
 
-  public User() {
+  public User(String firstName, String lastName, Gender gender, LocalDate dob, Long contactNum, String username, String email, String password) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.gender = gender;
+    this.dob = dob;
+    this.contactNum = contactNum;
+    this.username = username;
+    this.email = email;
+    this.password = password;
   }
 
   public User(String username, String email, String password) {
     this.username = username;
     this.email = email;
     this.password = password;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public Set<Role> getRoles() {
-    return roles;
-  }
-
-  public void setRoles(Set<Role> roles) {
-    this.roles = roles;
   }
 }

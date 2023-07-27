@@ -10,6 +10,7 @@ import com.hSenid.demo.payload.request.SignupRequest;
 import com.hSenid.demo.payload.response.MessageResponse;
 import com.hSenid.demo.repository.RoleRepository;
 import com.hSenid.demo.security.jwt.JwtUtils;
+import com.hSenid.demo.services.SequenceGeneratorService;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,10 @@ public class AuthController {
 	@Autowired
 	JwtUtils jwtUtils;
 
+	@Autowired
+	private SequenceGeneratorService service;
+
+
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -98,7 +103,8 @@ public class AuthController {
 		}
 
 		// Create new user's account
-		User user = new User(signUpRequest.getUsername(),
+		User user = new User(signUpRequest.getFirstName(), signUpRequest.getLastName(), signUpRequest.getGender(),
+				signUpRequest.getDob(), signUpRequest.getContactNum(),signUpRequest.getUsername(),
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()));
 		logger.info("Password has been encoded");
@@ -149,6 +155,7 @@ public class AuthController {
 			});
 		}
 
+		user.setId(service.getSequenceNumber(User.SEQUENCE_NAME));
 		user.setRoles(roles);
 		logger.info("All roles have been assigned to the user");
 		userRepository.save(user);
