@@ -22,8 +22,8 @@ public class Patient implements Serializable {
     @Id
     private int id;
     private String firstName;
-    private String email;
     private String lastName;
+    private String email;
     private Gender gender;
     private LocalDate dob;
     private Long contactNum;

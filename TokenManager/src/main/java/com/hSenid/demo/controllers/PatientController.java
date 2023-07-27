@@ -40,14 +40,14 @@ public class PatientController {
     @PostMapping("/add")
     public ResponseEntity<Patient> addPatient(@RequestBody Patient patient) {
         Patient newPatient = patientService.addPatient(patient);
-        logger.info("Successfully added patient {} to the database",newPatient.getName());
+        logger.info("Successfully added patient {} to the database",newPatient.getFirstName()+" "+newPatient.getLastName());
         return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
     public ResponseEntity<Patient> updatePatient(@RequestBody Patient patient) {
         Patient updatePatient = patientService.updatePatient(patient);
-        logger.info("Successfully updated patient {}",updatePatient.getName());
+        logger.info("Successfully updated patient {}",updatePatient.getFirstName()+" "+updatePatient.getLastName());
         return new ResponseEntity<>(updatePatient, HttpStatus.OK);
     }
 

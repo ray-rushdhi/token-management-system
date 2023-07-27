@@ -64,7 +64,8 @@ public class TokenService {
         Token firstAvailableToken = availableTokens.get(0);
         firstAvailableToken.setState(TokenState.RESERVED);
         firstAvailableToken.setReservedByID(reservedByID);
-        firstAvailableToken.setReservedByName(patientRepository.findPatientById(reservedByID).get().getName());
+        firstAvailableToken.setReservedByName(patientRepository.findPatientById(reservedByID).get().getFirstName()+
+                " "+patientRepository.findPatientById(reservedByID).get().getLastName());
 
         // Save the updated token to the database
         tokenRepository.save(firstAvailableToken);
