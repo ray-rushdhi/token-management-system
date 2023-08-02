@@ -11,6 +11,8 @@ import com.hSenid.demo.payload.response.MessageResponse;
 import com.hSenid.demo.repository.RoleRepository;
 import com.hSenid.demo.security.jwt.JwtUtils;
 import com.hSenid.demo.services.SequenceGeneratorService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,4 +157,20 @@ public class AuthController {
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
+
+//	@PostMapping("/signout")
+//	public void signout(HttpServletResponse response) {
+//		// Invalidate JWT token by clearing it from the client-side (browser)
+//		Cookie jwtCookie = new Cookie("jwtToken", null);
+//		jwtCookie.setMaxAge(0); // Set cookie expiration to 0 to immediately remove it
+//		jwtCookie.setPath("/"); // Set cookie path to ensure it's removed for all paths
+//		response.addCookie(jwtCookie);
+//
+//		// Optionally, you can also clear other cookies or local storage data related to authentication
+//
+//		// Redirect to a specific page after logout (optional)
+//		// For Angular, you can use window.location.href to reload the entire application after logout
+//		response.setHeader("Location", "/api/auth/signin"); // Redirect to the login page
+//		response.setStatus(302); // Set the status code to 302 for redirect
+//	}
 }
