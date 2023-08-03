@@ -55,8 +55,16 @@ public class PatientController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable ("id") int id) {
-        userService.deleteUser(id);
-        logger.info("User {} successfully deleted from the database",userService.findUserById(id));
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        User userToDelete = userService.findUserById(id);
+        if (userToDelete != null) {
+            logger.info("User {} successfully deleted from the database", userToDelete);
+            userService.deleteUser(id);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 }

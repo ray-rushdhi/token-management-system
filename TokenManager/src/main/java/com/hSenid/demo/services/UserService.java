@@ -2,6 +2,7 @@ package com.hSenid.demo.services;
 
 import com.hSenid.demo.exception.UserNotFoundException;
 import com.hSenid.demo.models.User;
+import com.hSenid.demo.repository.TokenRepository;
 import com.hSenid.demo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +18,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final TokenRepository tokenRepository;
+
     private final SequenceGeneratorService service;
 
     @Autowired
-    public UserService(UserRepository userRepository, SequenceGeneratorService service) {
+    public UserService(UserRepository userRepository, TokenRepository tokenRepository, SequenceGeneratorService service) {
         this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
         this.service = service;
     }
 

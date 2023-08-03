@@ -11,10 +11,18 @@ import java.util.Optional;
 public interface TokenRepository extends MongoRepository<Token, String> {
 
     Token findTokenById(int id);
+
     Token findTokenByTokenNum(int id);
+
     long countBySelectedDay(LocalDate selectedDay);
+
     List<Token> findBySelectedDay(LocalDate selectedDay);
+
     List<Token> findByReservedByID(int reservedBy);
+
     List<Token> findBySelectedDayAndState(LocalDate selectedDay, TokenState state);
+
     void deleteTokenByTokenNum(int id);
+
+    void deleteAllByReservedByID(int id);
 }

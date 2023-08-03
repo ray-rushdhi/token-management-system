@@ -74,6 +74,25 @@ public class TokenService {
 
     }
 
+    public void reserveTokenAdmin(int tokenNum, int patientID) {
+
+        Token token = tokenRepository.findTokenByTokenNum(tokenNum);
+
+        if (!UserRepository.findUserById(patientID).isEmpty()){
+            token.setReservedByID(patientID);
+            token.setState(TokenState.RESERVED);
+            token.setReservedByName(UserRepository.findUserById(patientID).get().getFirstName()+" "+
+                    UserRepository.findUserById(patientID).get().getLastName());
+            logger.info("User {} successfully reserved the token of ID {}",patientID,tokenNum);
+            logger.info(String.valueOf(token));
+            tokenRepository.save(token);
+        }else {
+            logger.error("User not found");
+            throw new UserNotFoundException("User not found");
+        }
+    }
+
+
     public void invalidateToken(int id) {
         try{
             Token existingToken = tokenRepository.findTokenByTokenNum(id);

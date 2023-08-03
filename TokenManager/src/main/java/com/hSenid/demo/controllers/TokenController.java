@@ -2,6 +2,7 @@ package com.hSenid.demo.controllers;
 
 import com.hSenid.demo.exception.TokenNotFoundException;
 import com.hSenid.demo.models.Token;
+import com.hSenid.demo.payload.request.AdminTokenReserveRequest;
 import com.hSenid.demo.payload.request.TokenReserveRequest;
 import com.hSenid.demo.services.TokenService;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,18 @@ public class TokenController {
     public ResponseEntity<String> reserveToken(@RequestBody TokenReserveRequest request) {
         try {
             tokenService.reserveToken(request.getReservedByID(), request.getDate());
+            return ResponseEntity.ok("Token reserved successfully");
+        } catch (TokenNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/reserve-admin")
+    public ResponseEntity<String> reserveTokenAdmin(@RequestBody AdminTokenReserveRequest request) {
+        try {
+            tokenService.reserveTokenAdmin(request.getTokenNum(), request.getReservedByID());
             return ResponseEntity.ok("Token reserved successfully");
         } catch (TokenNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
