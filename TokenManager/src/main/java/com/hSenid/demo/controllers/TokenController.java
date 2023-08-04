@@ -3,6 +3,7 @@ package com.hSenid.demo.controllers;
 import com.hSenid.demo.exception.TokenNotFoundException;
 import com.hSenid.demo.models.Token;
 import com.hSenid.demo.payload.request.AdminTokenReserveRequest;
+import com.hSenid.demo.payload.request.TokenRequest;
 import com.hSenid.demo.payload.request.TokenReserveRequest;
 import com.hSenid.demo.services.TokenService;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,8 @@ public class TokenController {
     }
 
     @PostMapping("/issue")
-    public ResponseEntity<Token> addToken(@RequestBody Token token) {
-        Token newToken = tokenService.createToken(token);
+    public ResponseEntity<Token> addToken(@RequestBody TokenRequest tokenRequest) {
+        Token newToken = tokenService.createToken(tokenRequest);
         logger.info("Token has been issued successfully");
         return new ResponseEntity<>(newToken, HttpStatus.CREATED);
     }

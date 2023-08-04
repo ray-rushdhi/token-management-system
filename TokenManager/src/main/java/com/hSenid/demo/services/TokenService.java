@@ -6,6 +6,7 @@ import com.hSenid.demo.exception.TokenNotFoundException;
 import com.hSenid.demo.models.User;
 import com.hSenid.demo.models.Token;
 import com.hSenid.demo.models.TokenState;
+import com.hSenid.demo.payload.request.TokenRequest;
 import com.hSenid.demo.repository.UserRepository;
 import com.hSenid.demo.repository.TokenRepository;
 import org.slf4j.Logger;
@@ -37,19 +38,24 @@ public class TokenService {
         return tokenRepository.findTokenByTokenNum(id);
     }
 
-    public Token createToken(Token token) {
+    public Token createToken(TokenRequest tokenRequest) {
         // Check if the maximum limit of 20 tokens per day is reached
-        LocalDate selectedDay = token.getSelectedDay();
+        LocalDate selectedDay = tokenRequest.selectedDay();
         long tokenCountForSelectedDay = tokenRepository.countBySelectedDay(selectedDay);
         if (tokenCountForSelectedDay >= 20) {
             logger.error("The maximum number of tokens have been issued for {}", selectedDay);
             throw new IllegalStateException("Maximum limit of 20 tokens per day reached");
         }
-        Token existingToken = tokenRepository.findTokenByTokenNum(token.getTokenNum());
+        Token existingToken = tokenRepository.findTokenByTokenNum(tokenRequest.tokenNum());
         if (existingToken != null) {
-            logger.error("Token number {} is already in use", token.getTokenNum());
+            logger.error("Token number {} is already in use", tokenRequest.tokenNum());
             throw new TokenInUseException("Token number is already in use");
         }
+        Token token = new Token();
+        token.setTokenNum(tokenRequest.tokenNum());
+        token.setSelectedDay(tokenRequest.selectedDay());
+        token.setState(tokenRequest.state());
+
         return tokenRepository.save(token);
     }
 
@@ -74,16 +80,16 @@ public class TokenService {
 
     }
 
-    public void reserveTokenAdmin(int tokenNum, int patientID) {
+    public void reserveTokenAdmin(int tokenNum, int reservedById) {
 
         Token token = tokenRepository.findTokenByTokenNum(tokenNum);
 
-        if (!UserRepository.findUserById(patientID).isEmpty()){
-            token.setReservedByID(patientID);
+        if (!UserRepository.findUserById(reservedById).isEmpty()){
+            token.setReservedByID(reservedById);
             token.setState(TokenState.RESERVED);
-            token.setReservedByName(UserRepository.findUserById(patientID).get().getFirstName()+" "+
-                    UserRepository.findUserById(patientID).get().getLastName());
-            logger.info("User {} successfully reserved the token of ID {}",patientID,tokenNum);
+            token.setReservedByName(UserRepository.findUserById(reservedById).get().getFirstName()+" "+
+                    UserRepository.findUserById(reservedById).get().getLastName());
+            logger.info("User {} successfully reserved the token of ID {}",reservedById,tokenNum);
             logger.info(String.valueOf(token));
             tokenRepository.save(token);
         }else {
