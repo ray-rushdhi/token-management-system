@@ -2,9 +2,7 @@ package com.hSenid.demo.controllers;
 
 import com.hSenid.demo.exception.TokenNotFoundException;
 import com.hSenid.demo.models.Token;
-import com.hSenid.demo.payload.request.AdminTokenReserveRequest;
 import com.hSenid.demo.payload.request.TokenRequest;
-import com.hSenid.demo.payload.request.TokenReserveRequest;
 import com.hSenid.demo.services.TokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,17 +27,17 @@ public class TokenController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping("/issue")
-    public ResponseEntity<Token> addToken(@RequestBody TokenRequest tokenRequest) {
-        Token newToken = tokenService.createToken(tokenRequest);
-        logger.info("Token has been issued successfully");
-        return new ResponseEntity<>(newToken, HttpStatus.CREATED);
-    }
+//    @PostMapping("/issue")
+//    public ResponseEntity<Token> addToken(@RequestBody TokenRequest tokenRequest) {
+//        Token newToken = tokenService.createToken(tokenRequest);
+//        logger.info("Token has been issued successfully");
+//        return new ResponseEntity<>(newToken, HttpStatus.CREATED);
+//    }
 
     @PostMapping("/reserve")
-    public ResponseEntity<String> reserveToken(@RequestBody TokenReserveRequest request) {
+    public ResponseEntity<String> reserveToken(@RequestBody TokenRequest request) {
         try {
-            tokenService.reserveToken(request.getReservedByID(), request.getDate());
+            tokenService.reserveToken(request);
             return ResponseEntity.ok("Token reserved successfully");
         } catch (TokenNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -48,17 +46,17 @@ public class TokenController {
         }
     }
 
-    @PostMapping("/reserve-admin")
-    public ResponseEntity<String> reserveTokenAdmin(@RequestBody AdminTokenReserveRequest request) {
-        try {
-            tokenService.reserveTokenAdmin(request.getTokenNum(), request.getReservedByID());
-            return ResponseEntity.ok("Token reserved successfully");
-        } catch (TokenNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
+//    @PostMapping("/reserve-admin")
+//    public ResponseEntity<String> reserveToken(@RequestBody TokenRequest request) {
+//        try {
+//            tokenService.reserveToken(request);
+//            return ResponseEntity.ok("Token reserved successfully");
+//        } catch (TokenNotFoundException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+//        } catch (IllegalStateException e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+//        }
+//    }
 
     @PutMapping("/invalidate/{id}")
     public ResponseEntity<?> invalidateId(@PathVariable ("id") int id) {
@@ -67,12 +65,12 @@ public class TokenController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/validate/{id}")
-    public ResponseEntity<?> validateId(@PathVariable ("id") int id) {
-        tokenService.validateToken(id);
-        logger.info("Token of ID {} has been successfully validated", id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PutMapping("/validate/{id}")
+//    public ResponseEntity<?> validateId(@PathVariable ("id") int id) {
+//        tokenService.validateToken(id);
+//        logger.info("Token of ID {} has been successfully validated", id);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
     @GetMapping("/date/{date}")
     public ResponseEntity<List<Token>> findByDate(@PathVariable("date") LocalDate date) {
@@ -102,10 +100,10 @@ public class TokenController {
         return new ResponseEntity<>(tokens, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteToken(@PathVariable ("id") int id) {
-        tokenService.deleteToken(id);
-        logger.info("Token with id {} successfully deleted from the database",id);
+    @DeleteMapping("/delete/{tokenNum}")
+    public ResponseEntity<?> deleteToken(@PathVariable ("tokenNum") int tokenNum) {
+        tokenService.deleteToken(tokenNum);
+        logger.info("Token number {} successfully deleted from the database",tokenNum);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -8,6 +8,6 @@ import java.time.LocalDate;
 public record TokenRequest(
         int tokenNum,
         LocalDate selectedDay,
-        TokenState state
+        int reservedByID
         ) {
 }
