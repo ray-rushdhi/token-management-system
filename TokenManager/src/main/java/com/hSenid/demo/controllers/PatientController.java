@@ -1,6 +1,7 @@
 package com.hSenid.demo.controllers;
 
 import com.hSenid.demo.models.User;
+import com.hSenid.demo.payload.request.PatientUpdateRequest;
 import com.hSenid.demo.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/patients")
@@ -47,10 +49,10 @@ public class PatientController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<User> updateUser(@RequestBody User User) {
-        User updateUser = userService.updateUser(User);
-        logger.info("Successfully updated User {}",updateUser.getFirstName()+" "+updateUser.getLastName());
-        return new ResponseEntity<>(updateUser, HttpStatus.OK);
+    public ResponseEntity<HttpStatus> updateUser(@RequestBody PatientUpdateRequest patientUpdateRequest) {
+        userService.updateUser(patientUpdateRequest);
+        logger.info("Successfully updated User {}",patientUpdateRequest.firstName()+" "+patientUpdateRequest.lastName());
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
