@@ -1,0 +1,17 @@
+* {
+  font-family: 'Quicksand';
+}
+
+h2 {
+  padding-bottom: 40px;
+}
+
+.details {
+
+  font-size: 16px;
+}
+
+.edit-form {
+    /* max-width: 1000px; */
+    margin: auto;
+  }

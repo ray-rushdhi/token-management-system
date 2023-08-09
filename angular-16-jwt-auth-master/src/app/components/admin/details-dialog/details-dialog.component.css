@@ -1,0 +1,20 @@
+
+/* Custom styles for the dialog */
+.dialog-content {
+  padding: 20px;
+}
+
+.dialog-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.dialog-button {
+  margin-left: 10px;
+}

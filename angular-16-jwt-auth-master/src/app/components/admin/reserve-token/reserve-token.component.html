@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Reserve Token</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Patient ID</mat-label>
+    <input matInput [(ngModel)]="reservedById" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" (click)="reserveToken()">
+    Reserve
+  </button>
+</mat-dialog-actions>

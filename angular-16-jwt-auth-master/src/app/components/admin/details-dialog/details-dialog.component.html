@@ -1,0 +1,49 @@
+<div class="dialog-content">
+  <h2 class="pb-3">Patient</h2>
+  <div class="details">
+    <div class="mb-2">
+      <label><strong>Name:</strong></label>
+      {{ data.patient.firstName + " " + data.patient.lastName }}
+    </div>
+    <div class="mb-2">
+      <label><strong>ID:</strong></label>
+      {{ data.patient.id }}
+    </div>
+
+    <div class="mb-2">
+      <label><strong>Gender:</strong></label>
+      {{ data.patient.gender }}
+    </div>
+    <div class="mb-2">
+      <label><strong>Date of Birth:</strong></label>
+      {{ data.patient.dob }}
+    </div>
+    <div class="mb-2">
+      <label><strong>Contact Number:</strong></label>
+      {{ data.patient.contactNum }}
+    </div>
+    <div class="mb-2">
+      <label><strong>Email:</strong></label>
+      {{ data.patient.email }}
+    </div>
+    <div class="mb-2">
+      <label><strong>Username:</strong></label>
+      {{ data.patient.username }}
+    </div>
+    <div *ngIf="data.patient">
+      <button
+        type="button"
+        class="btn btn-primary dialog-button"
+        (click)="editPatient(data.patient.id)"
+      >
+        <i class="bi bi-pencil"></i> Edit
+      </button>
+      <button
+        class="m-3 btn btn-primary btn-danger dialog-button"
+        (click)="remove(data.patient.id)"
+      >
+        <i class="bi bi-trash3"></i> Remove
+      </button>
+    </div>
+  </div>
+</div>

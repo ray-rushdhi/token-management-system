@@ -1,0 +1,47 @@
+<mat-drawer-container>
+  <mat-drawer #drawer opened="true" mode="side" class="sidebar">
+    <mat-nav-list class="list">
+      <mat-list-item class="pb-5 pt-5">
+        <button mat-button [ngStyle]="{ color: '#fff' }">
+          <i class="bi m-2 bi-speedometer2"></i>
+          Dashboard
+        </button>
+      </mat-list-item>
+      <mat-list-item class="pb-5 pt-5">
+        <button
+          mat-button
+          [ngStyle]="{ color: '#fff' }"
+          (click)="openPatientManager()"
+        >
+          <i class="bi m-2 bi-hospital"></i>
+          Patient Management
+        </button>
+      </mat-list-item>
+      <mat-list-item class="pb-5 pt-5">
+        <button
+          mat-button
+          (click)="openTokenManager()"
+          [ngStyle]="{ color: '#fff' }"
+        >
+          <i class="bi m-2 bi-ticket-perforated"></i>
+          Token Management
+        </button>
+      </mat-list-item>
+      <mat-list-item class="pb-5 pt-5">
+        <button
+          mat-button
+          (click)="openTokenHistory()"
+          [ngStyle]="{ color: '#fff' }"
+        >
+          <i class="bi m-2 bi-clock-history"></i>
+          Token History
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div style="text-align: center; min-height: 600px">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
