@@ -5,8 +5,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { EventBusService } from 'src/app/_shared/event-bus.service';
 import { Subscription } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
-import { PatientService } from '../../services/patient.service';
-import { Patient } from '../admin/patient-manager/patient';
+import { PatientService } from '../../../services/patient.service';
+import { Patient } from '../../admin/patient-manager/patient';
 
 @Component({
   selector: 'app-user-sidebar',
@@ -77,15 +77,12 @@ export class UserSidebarComponent {
     });
   }
 
-  openPatientManager() {
-    this.router.navigate(['patient-manager']);
+  openReserve() {
+    this.router.navigate(['user/patient-reserve']);
   }
 
-  openTokenManager() {
-    this.router.navigate(['token-manager']);
+  openHistory() {
+    this.router.navigate(['user/patient-history']);
   }
 
-  openTokenHistory() {
-    this.router.navigate(['token-history']);
-  }
 }

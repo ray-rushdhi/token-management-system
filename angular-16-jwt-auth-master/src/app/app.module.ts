@@ -31,7 +31,7 @@ import { DatePipe } from '@angular/common';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
+import { UserSidebarComponent } from './components/user/user-sidebar/user-sidebar.component';
 import { CustomInterceptor } from './_helpers/custom.interceptor';
 import { PatientManagerComponent } from './components/admin/patient-manager/patient-manager.component';
 import { DetailsComponent } from './components/admin/details/details.component';
@@ -47,6 +47,9 @@ import { DetailsDialogComponent } from './components/admin/details-dialog/detail
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { PatientService } from './services/patient.service';
 import { TokenService } from './services/token.service';
+import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
+import { PatientHistoryComponent } from './components/user/patient-history/patient-history.component';
+import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 
 
 
@@ -74,6 +77,9 @@ import { TokenService } from './services/token.service';
     ReserveTokenComponent,
     IssueTokenComponent,
     EditPatientComponent,
+    PatientReserveComponent,
+    PatientHistoryComponent,
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,

@@ -58,7 +58,7 @@ export class TokenService {
     return this.http.post<string>(`${this.apiServerUrl}/tokens/reserve`, requestBody);
   }
 
-  reserveTokenAdmin(reservedById: number, tokenNum: number): Observable<string> {
+  public reserveTokenAdmin(reservedById: number, tokenNum: number): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const options = { headers: headers, responseType: 'text' as 'json' }; // Set responseType to 'text'
 
@@ -73,6 +73,10 @@ export class TokenService {
 
   public deleteToken (tokenNum: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/tokens/delete/${tokenNum}`);
+  }
+
+  public findAvailability (date: string): Observable<number> {
+    return this.http.post<number>(`${this.apiServerUrl}/tokens/availability`, date);
   }
 
   // public reserveTokenAdmin(tokenNum: number, reservedByID: number) {

@@ -14,7 +14,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ReserveTokenAdminComponent {
 
-  tokenNumber?: number;
   tokenState: TokenState = TokenState.Available;
   token: any;
   selectedTokenState: any;
@@ -36,17 +35,16 @@ export class ReserveTokenAdminComponent {
 
   reserveToken(): void {
     console.log(this.selectedDate)
-    if (this.tokenNumber === undefined || this.reservedByID === undefined) {
+    if (this.reservedByID === undefined) {
       this.snackBar.open('Please fill in all the required fields', 'Close'); // Display the error in a snackbar
       return; // Don't proceed if any of the fields are empty
     }
   
     console.log('Selected Date:', this.selectedDate);
-    console.log('Token number:', this.tokenNumber);
     console.log('Patient ID:', this.reservedByID);
   
   
-    const myToken = new TokenImplementation(this.tokenNumber, this.selectedDate,  this.reservedByID);
+    const myToken = new TokenImplementation(this.selectedDate,  this.reservedByID);
 
     console.log(this.selectedDate)
     console.log('Reserved by ID :', this.reservedByID);
@@ -65,7 +63,7 @@ export class ReserveTokenAdminComponent {
     );
   
     // Don't close the dialog if there are validation errors
-    if (this.tokenNumber  && this.reservedByID) {
+    if (this.reservedByID) {
       this.dialogRef.close();
     }
   }

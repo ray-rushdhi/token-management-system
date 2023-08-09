@@ -11,7 +11,6 @@ export interface Token{
 
 export class TokenImplementation implements Token {
     constructor(
-      public tokenNum?: number,
       public selectedDay?: string,
       public reservedByID?: number
     ) {}

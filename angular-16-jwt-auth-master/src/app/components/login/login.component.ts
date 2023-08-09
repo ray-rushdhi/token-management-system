@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
       next: res => {
         console.log('res',res);
         this.loginService.saveTokenAndUser(res.token, res);
-        console.log(this.loginService.getToken);
-        console.log(this.loginService.getUser)
+        console.log(this.loginService.getToken());
+        console.log(this.loginService.getUser())
         
         
         const userRoles = res.roles; // Assuming roles are sent in the API response
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
           // Example: Use Angular Router to navigate to the user dashboard
           //window.location.href='/user-dashboard';
           //this.login.loginStatusSubject.next(true);
-          this.router.navigate(['user-dashboard']);
+          this.router.navigate(['user']);
         }else{
           this.loginService.logout();
 

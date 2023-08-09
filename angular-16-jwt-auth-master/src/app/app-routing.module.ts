@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-
 import { HomeComponent } from './components/home/home.component';
 
 import { LoginComponent } from './components/login/login.component';
@@ -16,7 +15,10 @@ import { ReserveTokenComponent } from './components/admin/reserve-token/reserve-
 import { TokenHistoryComponent } from './components/admin/token-history/token-history.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
+import { UserSidebarComponent } from './components/user/user-sidebar/user-sidebar.component';
+import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
+import { PatientHistoryComponent } from './components/user/patient-history/patient-history.component';
+import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
 
 
 const routes: Routes = [
@@ -65,8 +67,24 @@ const routes: Routes = [
 
   },
   {
-    path:'user-dashboard',
-    component: UserSidebarComponent
+    path:'user',
+    component:UserSidebarComponent,
+
+    children:[
+      {
+        path:'',
+        component: UserDashboardComponent
+      },
+      {
+        path:'patient-history',
+        component: PatientHistoryComponent
+      },
+      {
+        path:'patient-reserve',
+        component: PatientReserveComponent
+      }
+    ],
+
   }
   // { path: 'user', component: BoardUserComponent },
   // { path: 'admin', component: BoardAdminComponent },

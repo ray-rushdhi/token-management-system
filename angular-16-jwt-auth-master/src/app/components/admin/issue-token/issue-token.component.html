@@ -1,12 +1,6 @@
 <h2 mat-dialog-title>RESERVE TOKEN</h2>
 <mat-dialog-content>
   <mat-form-field>
-    <mat-label>Token Number</mat-label>
-    <input matInput [(ngModel)]="tokenNumber" required />
-    <mat-error *ngIf="!tokenNumber">Token number is required</mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
     <mat-label>Token State</mat-label>
     <mat-select [(ngModel)]="selectedTokenState" required>
       <mat-option *ngFor="let state of TokenState" [value]="state">{{

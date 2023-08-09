@@ -11,29 +11,19 @@
         <button
           mat-button
           [ngStyle]="{ color: '#fff' }"
-          (click)="openPatientManager()"
+          (click)="openReserve()"
         >
           <i class="bi m-2 bi-hospital"></i>
-          Patient Management
+          Reserve Tokens
         </button>
       </mat-list-item>
       <mat-list-item class="pb-5 pt-5">
         <button
           mat-button
-          (click)="openTokenManager()"
+          (click)="openHistory()"
           [ngStyle]="{ color: '#fff' }"
         >
           <i class="bi m-2 bi-ticket-perforated"></i>
-          Token Management
-        </button>
-      </mat-list-item>
-      <mat-list-item class="pb-5 pt-5">
-        <button
-          mat-button
-          (click)="openTokenHistory()"
-          [ngStyle]="{ color: '#fff' }"
-        >
-          <i class="bi m-2 bi-clock-history"></i>
           Token History
         </button>
       </mat-list-item>

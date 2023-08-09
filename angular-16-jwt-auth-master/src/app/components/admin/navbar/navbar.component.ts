@@ -6,6 +6,8 @@ import { PatientService } from '../../../services/patient.service';
 import { Patient } from '../patient-manager/patient';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/services/login.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -27,7 +29,9 @@ export class NavbarComponent {
     private storageService: StorageService,
     private authService: AuthService,
     private eventBusService: EventBusService,
-    private patientService: PatientService
+    private patientService: PatientService,
+    public loginService: LoginService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -61,17 +65,11 @@ export class NavbarComponent {
     );
   }
 
-  logout(): void {
-    this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
-        this.storageService.clean();
-
-        window.location.reload();
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
+  public logout(){
+    this.loginService.logout();
+    //window.location.reload();
+    //this.isLoggedIn=false;
+    //this.user=null;
+    this.router.navigate(['/login']); // Navigate to the login page after logging out
   }
 }

@@ -19,7 +19,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class IssueTokenComponent {
 
-  tokenNumber?: number;
   tokenState: TokenState = TokenState.Available;
   token: any;
   selectedTokenState: any;
@@ -50,16 +49,16 @@ export class IssueTokenComponent {
 
   reserveToken(): void {
     console.log(this.selectedDate)
-    if (this.tokenNumber === undefined || !this.selectedTokenState || this.patientID === undefined) {
+    if ( !this.selectedTokenState || this.patientID === undefined) {
       this.snackBar.open('Please fill in all the required fields', 'Close'); // Display the error in a snackbar
       return; // Don't proceed if any of the fields are empty
     }
   
     console.log('Selected Date:', this.selectedDate);
-    console.log('Token number:', this.tokenNumber);
+
     this.selectedDate = this.datePipe.transform(this.data, 'yyyy-MM-dd') || '';
   
-    const myToken = new TokenImplementation(this.tokenNumber, this.selectedDate, this.selectedTokenState);
+    const myToken = new TokenImplementation(this.selectedDate, this.selectedTokenState);
   
     this.tokenService.createToken(myToken).subscribe({
       next: data => {
@@ -73,7 +72,7 @@ export class IssueTokenComponent {
     });
   
     // Don't close the dialog if there are validation errors
-    if (this.tokenNumber && this.selectedTokenState && this.patientID) {
+    if (this.selectedTokenState && this.patientID) {
       this.dialogRef.close();
     }
   }
