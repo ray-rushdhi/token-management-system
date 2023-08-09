@@ -4,6 +4,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { Token, TokenImplementation } from '../../admin/token-management/token';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patient-reserve',
@@ -66,27 +67,60 @@ export class PatientReserveComponent {
       console.log(queryDate);
   }
 
-  reserveToken(){
 
-    console.log('Selected Date:', this.selectedDate);
-    console.log('Patient ID:', this.reservedByID);
+  reserveToken(): void {
+    Swal.fire({
+      title: 'Do you want to reserve a token for ${this.selectedDate} ?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No'
+    }).then((result) => {
+       console.log('Selected Date:', this.selectedDate);
+       console.log('Patient ID:', this.reservedByID);
   
   
-    const myToken = new TokenImplementation(this.selectedDate,  this.reservedByID);
+       const myToken = new TokenImplementation(this.selectedDate,  this.reservedByID);
 
-    console.log(this.selectedDate)
-    console.log('Reserved by ID :', this.reservedByID);
+       console.log(this.selectedDate)
+       console.log('Reserved by ID :', this.reservedByID);
   
-    this.tokenService.createToken(myToken).subscribe(
-      response => {
-        if (response.status === 200) {
-          this.snackBar.open('Token reserved successfully', 'Close');
-        }
-      },
-      error => {
-        console.log('Error in reserving a token');
-        this.snackBar.open('Error in reserving a token', 'Close');
-      }
-    );
+       this.tokenService.createToken(myToken).subscribe(
+         response => {
+           if (response.status === 201) {
+             this.snackBar.open('Token reserved successfully', 'Close');
+           }
+         },
+         error => {
+           console.log('Error in reserving a token');
+           this.snackBar.open('Error in reserving a token', 'Close');
+         }
+       );
+      
+    });
   }
+
+  // reserveToken(){
+
+  //   console.log('Selected Date:', this.selectedDate);
+  //   console.log('Patient ID:', this.reservedByID);
+  
+  
+  //   const myToken = new TokenImplementation(this.selectedDate,  this.reservedByID);
+
+  //   console.log(this.selectedDate)
+  //   console.log('Reserved by ID :', this.reservedByID);
+  
+  //   this.tokenService.createToken(myToken).subscribe(
+  //     response => {
+  //       if (response.status === 200) {
+  //         this.snackBar.open('Token reserved successfully', 'Close');
+  //       }
+  //     },
+  //     error => {
+  //       console.log('Error in reserving a token');
+  //       this.snackBar.open('Error in reserving a token', 'Close');
+  //     }
+  //   );
+  // }
 }
