@@ -79,7 +79,11 @@ public class AuthController {
 				.collect(Collectors.toList());
 
 		logger.info("User {} has successfully logged in", loginRequest.getUsername());
-		return ResponseEntity.ok(new JwtResponse(jwt));
+		return ResponseEntity.ok(new JwtResponse(jwt,
+				userDetails.getId(),
+				userDetails.getUsername(),
+				userDetails.getEmail(),
+				roles));
 
 	}
 

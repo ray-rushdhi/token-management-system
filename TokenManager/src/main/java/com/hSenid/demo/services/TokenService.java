@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,9 +26,13 @@ public class TokenService {
 
     private final UserRepository UserRepository;
 
-    public TokenService(TokenRepository tokenRepository, UserRepository UserRepository) {
+    private final TokenSequenceGenerator tokenSequenceGenerator;
+
+    public TokenService(TokenRepository tokenRepository, UserRepository UserRepository,
+                        TokenSequenceGenerator tokenSequenceGenerator) {
         this.tokenRepository = tokenRepository;
         this.UserRepository = UserRepository;
+        this.tokenSequenceGenerator = tokenSequenceGenerator;
     }
 
     public List<Token> getAllTokens() {
@@ -37,6 +42,12 @@ public class TokenService {
     public Token findTokenById(int id) {
         return tokenRepository.findTokenByTokenNum(id);
     }
+
+//    public Integer findAvailability(LocalDate date){
+//        List<Token> tokens = tokenRepository.findBySelectedDay(date);
+//        Integer noOfTokens = 20-tokens.size();
+//        return noOfTokens;
+//    }
 
 //    public Token createToken(TokenRequest tokenRequest) {
 //        // Check if the maximum limit of 20 tokens per day is reached
@@ -92,13 +103,13 @@ public class TokenService {
             logger.error("The maximum number of tokens have been issued for {}", selectedDay);
             throw new IllegalStateException("Maximum limit of 20 tokens per day reached");
         }
-        Token existingToken = tokenRepository.findTokenByTokenNum(tokenRequest.tokenNum());
-        if (existingToken != null) {
-            logger.error("Token number {} is already in use", tokenRequest.tokenNum());
-            throw new TokenInUseException("Token number is already in use");
-        }
+//        Token existingToken = tokenRepository.findTokenByTokenNum(tokenRequest.tokenNum());
+//        if (existingToken != null) {
+//            logger.error("Token number {} is already in use", tokenRequest.tokenNum());
+//            throw new TokenInUseException("Token number is already in use");
+//        }
         Token token = new Token();
-        token.setTokenNum(tokenRequest.tokenNum());
+        token.setTokenNum(tokenSequenceGenerator.getSequenceNumber(Token.SEQUENCE_NAME));
         token.setSelectedDay(tokenRequest.selectedDay());
         token.setState(TokenState.RESERVED);
         token.setReservedByID(tokenRequest.reservedByID());

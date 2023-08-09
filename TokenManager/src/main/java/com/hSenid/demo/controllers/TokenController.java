@@ -3,6 +3,7 @@ package com.hSenid.demo.controllers;
 import com.hSenid.demo.exception.TokenNotFoundException;
 import com.hSenid.demo.models.Token;
 import com.hSenid.demo.payload.request.TokenRequest;
+import com.hSenid.demo.services.TokenSequenceGenerator;
 import com.hSenid.demo.services.TokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,8 @@ public class TokenController {
     private static final Logger logger = LoggerFactory.getLogger(TokenController.class);
 
     private final TokenService tokenService;
+
+
 
     public TokenController(TokenService tokenService) {
         this.tokenService = tokenService;
@@ -46,6 +50,13 @@ public class TokenController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+//    @PostMapping("/availability")
+//    public ResponseEntity<Integer> findAvailability(@RequestBody LocalDate date) {
+//        Integer availability = tokenService.findAvailability(date);
+//        logger.info("Number of available tokens : "+availability);
+//        return ResponseEntity.ok(availability);
+//    }
 
 //    @PostMapping("/reserve-admin")
 //    public ResponseEntity<String> reserveToken(@RequestBody TokenRequest request) {
