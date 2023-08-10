@@ -41,7 +41,7 @@
         <tbody>
           <tr
             *ngFor="
-              let token of patientTokens | search : searchText;
+              let token of patientTokens | tokenSort | search : searchText;
               let i = index
             "
             [class.active]="i == currentIndex"

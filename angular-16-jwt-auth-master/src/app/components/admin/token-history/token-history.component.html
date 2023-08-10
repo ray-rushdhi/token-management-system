@@ -3,13 +3,40 @@
     <div class="col-md-12">
       <h1>TOKEN HISTORY</h1>
 
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef
+            ><strong>ID</strong></mat-header-cell
+          >
+          <mat-cell *matCellDef="let patient">{{ patient.id }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef
+            ><strong>Name</strong></mat-header-cell
+          >
+          <mat-cell *matCellDef="let patient">{{
+            patient.firstName + " " + patient.lastName
+          }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['id', 'name']"></mat-header-row>
+        <mat-row
+          *matRowDef="let patient; columns: ['id', 'name']"
+          [ngClass]="{ 'selected-row': patient === selectedPatient }"
+          (click)="selectPatient(patient)"
+        ></mat-row>
+      </mat-table>
+      <mat-paginator
+        [pageSize]="3"
+        [pageSizeOptions]="[3, 16, 24]"
+      ></mat-paginator>
       <div class="input-group">
-        <input
+        <!-- <input
           type="number"
           class="form-control"
           [(ngModel)]="patientID"
           placeholder="Enter Patient ID"
-        />
+        /> -->
         <button class="btn btn-primary" (click)="getTokensForPatient()">
           Get Tokens
         </button>
@@ -26,7 +53,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let token of patientTokens">
+          <tr *ngFor="let token of patientTokens | tokenSort">
             <td>{{ token.tokenNum }}</td>
             <td>{{ token.selectedDay }}</td>
             <td>{{ token.state }}</td>

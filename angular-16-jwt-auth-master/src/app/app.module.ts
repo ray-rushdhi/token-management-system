@@ -27,7 +27,6 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { SearchPipe } from './search.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { DatePipe } from '@angular/common';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -52,7 +51,9 @@ import { TokenService } from './services/token.service';
 import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
 import { PatientHistoryComponent } from './components/user/patient-history/patient-history.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
-import { TokenSortPipe } from './token-sort.pipe';
+import { TokenSortPipe } from './_helpers/token-sort.pipe';
+import { SearchPipe } from './_helpers/search.pipe';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 
 
@@ -84,6 +85,7 @@ import { TokenSortPipe } from './token-sort.pipe';
     PatientHistoryComponent,
     UserDashboardComponent,
     TokenSortPipe,
+    UnauthorizedComponent,
   ],
   imports: [
     BrowserModule,

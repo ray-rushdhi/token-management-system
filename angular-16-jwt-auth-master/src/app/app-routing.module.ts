@@ -19,6 +19,8 @@ import { UserSidebarComponent } from './components/user/user-sidebar/user-sideba
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
 import { PatientHistoryComponent } from './components/user/patient-history/patient-history.component';
 import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { AuthGuard } from './_helpers/auth.guard';
 
 
 const routes: Routes = [
@@ -26,14 +28,15 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, pathMatch:'full', },
   { path: 'login', component: LoginComponent, pathMatch:'full', },
   { path: 'profile', component: ProfileComponent, pathMatch:'full', },
+  { path: 'unauthorized', component: UnauthorizedComponent, pathMatch:'full', },
   {
-    path:'admin',
-    component:SidebarComponent,
+    path:'admin' ,
+    component:SidebarComponent, canActivate: [AuthGuard],
 
     children:[
       {
         path:'',
-        component: AdminDashboardComponent
+        component: AdminDashboardComponent, 
       },
       {
         path:'patient-manager',
@@ -68,7 +71,7 @@ const routes: Routes = [
   },
   {
     path:'user',
-    component:UserSidebarComponent,
+    component:UserSidebarComponent, 
 
     children:[
       {

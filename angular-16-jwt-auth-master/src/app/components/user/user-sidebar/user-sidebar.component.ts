@@ -49,7 +49,6 @@ export class UserSidebarComponent {
       this.logout();
     });
 
-    this.getPatients();
   }
 
   public getPatients(): void {

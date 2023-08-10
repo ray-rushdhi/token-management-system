@@ -11,7 +11,7 @@ import { ReserveTokenComponent } from '../reserve-token/reserve-token.component'
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ReserveTokenAdminComponent } from '../reserve-token-admin/reserve-token-admin.component';
-import { TokenSortPipe } from 'src/app/token-sort.pipe';
+import { TokenSortPipe } from 'src/app/_helpers/token-sort.pipe';
 
 
 @Component({
