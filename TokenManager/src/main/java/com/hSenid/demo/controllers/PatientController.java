@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/patients")
 public class PatientController {
 

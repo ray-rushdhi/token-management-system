@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TokenService } from 'src/app/services/token.service';
 import { Token } from '../../admin/token-management/token';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patient-history',
@@ -56,4 +57,32 @@ export class PatientHistoryComponent {
   //     this.patientTokens = tokens;
   //   });
   // }
+
+  remove(tokenNum: number): void {
+    Swal.fire({
+      title: 'Do you want to delete this token?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // The user confirmed the deletion
+        this.tokenService.deleteToken(tokenNum).subscribe(
+          () => {
+            console.log('Token removed successfully');
+            window.location.reload();
+            // Optionally, you can update the patient list or perform any other actions upon successful removal.
+          },
+          (error) => {
+            console.error('Error removing token:', error);
+            // Handle any error message or error handling logic here.
+          }
+        );
+      } else if (result.isDenied) {
+        // The user denied the deletion
+        console.log('Deletion canceled');
+      }
+    });
+  }
 }

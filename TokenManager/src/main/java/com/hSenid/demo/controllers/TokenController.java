@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin (origins = "*")
+//@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/tokens")
 public class TokenController {
 
@@ -70,6 +71,7 @@ public class TokenController {
 //        }
 //    }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/invalidate/{id}")
     public ResponseEntity<?> invalidateId(@PathVariable ("id") int id) {
         tokenService.invalidateToken(id);
@@ -91,6 +93,7 @@ public class TokenController {
         return new ResponseEntity<>(tokens, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<List<Token>> getAllTokens() {
         List<Token> tokens = tokenService.getAllTokens();
@@ -98,6 +101,7 @@ public class TokenController {
         return new ResponseEntity<>(tokens, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/find/{id}")
     public ResponseEntity<Token> getTokenById(@PathVariable("id") int id) {
         Token token = tokenService.findTokenById(id);

@@ -55,6 +55,24 @@ public class WebSecurityConfig {
     return new BCryptPasswordEncoder();
   }
 
+//  @Bean
+//  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//    http.csrf(csrf -> csrf.disable())
+//            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+//            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//            .authorizeHttpRequests(auth ->
+//                    auth.requestMatchers("/tokens/**", "/patients/**").hasRole("ADMIN") // Allow only admin for tokens and patients
+//                            .requestMatchers("/api/auth/**", "/api/test/**").permitAll() // Allow all for these
+//                            .anyRequest().authenticated()
+//            );
+//
+//    http.authenticationProvider(authenticationProvider());
+//
+//    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//
+//    return http.build();
+//  }
+
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(csrf -> csrf.disable())

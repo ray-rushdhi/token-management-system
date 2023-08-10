@@ -35,6 +35,7 @@
             <th>State</th>
             <th>Patient ID</th>
             <th>Patient name</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -51,6 +52,17 @@
             <td>{{ token.state }}</td>
             <td>{{ token.reservedByID }}</td>
             <td>{{ token.reservedByName }}</td>
+            <td>
+              <a
+                class="btn btn-secondary tooltips"
+                data-placement="top"
+                data-toggle="tooltip"
+                data-original-title="Delete"
+                (click)="remove(token.tokenNum)"
+              >
+                <i class="bi bi-trash3"></i>
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>
