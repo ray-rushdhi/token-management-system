@@ -12,6 +12,14 @@ export class PatientHistoryComponent {
   patientID?: number;
   patientTokens?: Token[];
   reservedByID?: number;
+  searchText=""
+  searchQuery: number=0;
+  searchResults: Token[] = [];
+  public tokens: any[] = [];
+  currentIndex = -1;
+  currentToken: Token = {};
+
+
 
   constructor(private tokenService: TokenService) {}
 
@@ -32,6 +40,11 @@ export class PatientHistoryComponent {
   this.tokenService.findByUser(this.reservedByID).subscribe(tokens => {
     this.patientTokens = tokens;
   });
+  }
+
+  setActiveToken(token: Token, index: number): void {
+    this.currentToken = token;
+    this.currentIndex = index;
   }
 
   // getTokensForPatient(): void {
