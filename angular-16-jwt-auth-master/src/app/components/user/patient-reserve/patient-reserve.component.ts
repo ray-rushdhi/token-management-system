@@ -19,6 +19,7 @@ export class PatientReserveComponent {
   showAvailability: boolean = false; // Default value is false
   availability: number = 0;
   reservedByID?: number;
+  noDateError?: string;
 
   constructor(private tokenService: TokenService, private datePipe: DatePipe,
     private snackBar: MatSnackBar ){}
@@ -48,24 +49,56 @@ export class PatientReserveComponent {
       : '';
   }
 
-  checkAvailability(){
-    const queryDate: string = this.selectedDate
-      ? this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!
-      : '';
+  checkAvailability() {
+    if (!this.selectedDate) {
+      this.snackBar.open('Please select a date first', 'Close');
+    } else {
+      const queryDate: string = this.selectedDate
+        ? this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!
+        : '';
+  
       this.tokenService.findByDate(queryDate).subscribe(
-      
         (response: Token[]) => {
           this.tokens = response;
-          this.showAvailability = true;
+  
+          // Perform availability calculation and other logic here
+          this.availability = 20 - this.tokens.length;
+          console.log(this.tokens);
+          console.log(queryDate);
+  
+          this.showAvailability = true; // Move this line here if necessary
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
         }
       );
-      this.availability = 20 - this.tokens.length;
-      console.log(this.tokens);
-      console.log(queryDate);
+    }
   }
+  
+  // checkAvailability(){
+  //   if(!this.selectedDate){
+
+  //     this.snackBar.open('Please select a date first', 'Close');
+  //   } else {
+  //     const queryDate: string = this.selectedDate
+  //     ? this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!
+  //     : '';
+  //     this.tokenService.findByDate(queryDate).subscribe(
+      
+  //       (response: Token[]) => {
+  //         this.tokens = response;
+  //         this.showAvailability = true;
+  //       },
+  //       (error: HttpErrorResponse) => {
+  //         alert(error.message);
+  //       }
+  //     );
+  //     this.availability = 20 - this.tokens.length;
+  //     console.log(this.tokens);
+  //     console.log(queryDate);
+  //   }
+    
+  // }
 
 
   reserveToken(): void {
