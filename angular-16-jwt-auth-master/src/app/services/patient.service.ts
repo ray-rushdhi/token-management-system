@@ -19,7 +19,7 @@ export class PatientService {
   }
 
   public getPatientById(patientId: number): Observable<Patient> {
-    return this.http.get<Patient>(`${this.apiServerUrl}/patients/find/{id}`);
+    return this.http.get<Patient>(`${this.apiServerUrl}/patients/find/${patientId}`);
   }
 
   public addPatient(patient: Patient): Observable<Patient> {

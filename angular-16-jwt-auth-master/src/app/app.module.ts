@@ -5,6 +5,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatOption } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +52,7 @@ import { TokenService } from './services/token.service';
 import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
 import { PatientHistoryComponent } from './components/user/patient-history/patient-history.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
+import { TokenSortPipe } from './token-sort.pipe';
 
 
 
@@ -80,6 +83,7 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
     PatientReserveComponent,
     PatientHistoryComponent,
     UserDashboardComponent,
+    TokenSortPipe,
   ],
   imports: [
     BrowserModule,
@@ -102,6 +106,8 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
     DatePipe,
     MatSidenavModule,
     MatListModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [
     {
@@ -110,6 +116,7 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
       multi: true 
     },
     DatePipe,
+    TokenSortPipe
     ],
   bootstrap: [AppComponent]
 })

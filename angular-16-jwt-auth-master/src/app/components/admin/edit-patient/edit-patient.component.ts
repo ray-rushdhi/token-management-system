@@ -59,9 +59,30 @@ export class EditPatientComponent implements OnInit {
       this.patientId = +idParam;
       console.log("patient ID: ", this.patientId)
       // Fetch patient data using this.patientId and pre-fill the form
+      this.fetchPatientData(this.patientId);
     } else {
       // Handle the case where the id parameter is missing
     }
+  }
+
+  fetchPatientData(patientId: number): void {
+    this.patientService.getPatientById(patientId).subscribe(
+    
+      (patient: Patient) => {
+        this.form = {
+          firstName: patient.firstName,
+          lastName: patient.lastName,
+          gender: patient.gender,
+          dob: patient.dob,
+          contactNum: patient.contactNum,
+          username: patient.username,
+          email: patient.email,
+        };
+      },
+      (error: HttpErrorResponse) => {
+        // Handle the error
+      }
+    );
   }
 
   onSubmit() {
@@ -79,7 +100,11 @@ export class EditPatientComponent implements OnInit {
           this.isSignUpFailed = false;
         },
         error: err => {
-          this.errorMessage = err.error.message;
+          if (err.error && err.error.message) {
+            this.errorMessage = err.error.message;
+          } else {
+            this.errorMessage = 'An error occurred while updating the patient.';
+          }
           this.isSignUpFailed = true;
         }
       })

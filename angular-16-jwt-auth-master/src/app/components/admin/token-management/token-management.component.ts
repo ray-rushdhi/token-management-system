@@ -11,6 +11,7 @@ import { ReserveTokenComponent } from '../reserve-token/reserve-token.component'
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ReserveTokenAdminComponent } from '../reserve-token-admin/reserve-token-admin.component';
+import { TokenSortPipe } from 'src/app/token-sort.pipe';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class TokenManagementComponent {
   public tokens: any[] = [];
 
   constructor(private tokenService: TokenService, private dialog: MatDialog, private patientService: PatientService,
-    private router: Router, private datePipe: DatePipe,){}
+    private router: Router, private datePipe: DatePipe, private tokenSortPipe: TokenSortPipe){}
   
 
   ngOnInit() {

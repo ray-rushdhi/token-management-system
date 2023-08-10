@@ -1,6 +1,6 @@
 
 import { TokenState } from '../token-management/tokenState.enum';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { TokenService } from '../../../services/token.service';
@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Patient } from '../patient-manager/patient';
 import { PatientService } from 'src/app/services/patient.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-reserve-token-admin',
@@ -36,6 +38,9 @@ export class ReserveTokenAdminComponent {
 
   TokenState: string[] = Object.values(TokenState);
 
+  dataSource = new MatTableDataSource<Patient>(this.patients);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(
     public dialogRef: MatDialogRef<ReserveTokenAdminComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { queryDate: string },
@@ -60,6 +65,8 @@ export class ReserveTokenAdminComponent {
     this.patientService.getPatients().subscribe(
       (response: Patient[]) => {
         this.patients = response;
+        this.dataSource.data = this.patients; // Update the data source
+        this.dataSource.paginator = this.paginator;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

@@ -62,7 +62,10 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let token of tokens | search : searchText; let i = index"
+            *ngFor="
+              let token of tokens | tokenSort | search : searchText;
+              let i = index
+            "
             [class.active]="i == currentIndex"
             (click)="setActiveToken(token, i)"
           >
