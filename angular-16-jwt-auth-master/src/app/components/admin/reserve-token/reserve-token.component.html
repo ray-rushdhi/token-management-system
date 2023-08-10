@@ -1,9 +1,51 @@
 <h2 mat-dialog-title>Reserve Token</h2>
 <mat-dialog-content>
-  <mat-form-field>
+  <!-- <mat-form-field>
     <mat-label>Patient ID</mat-label>
     <input matInput [(ngModel)]="reservedById" />
-  </mat-form-field>
+  </mat-form-field> -->
+  <div class="input-group">
+    <input
+      type="text"
+      id="form1"
+      class="form-control"
+      placeholder="Search"
+      [(ngModel)]="searchText"
+    />
+    <button type="button" class="btn btn-primary">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <!-- <th>Gender</th> -->
+        <!-- <th>Date of Birth</th>
+        <th>Email</th>
+        <th>Contact Number</th>
+        <th>Actions</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let patient of patients | search : searchText; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActivePatient(patient, i)"
+      >
+        <td>{{ patient.id }}</td>
+        <td>{{ patient.firstName + " " + patient.lastName }}</td>
+        <!-- <td>{{ patient.gender }}</td>
+        <td>{{ patient.dob }}</td>
+        <td>{{ patient.email }}</td>
+        <td>{{ patient.contactNum }}</td>
+        <td>
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="dialogRef.close()">Cancel</button>

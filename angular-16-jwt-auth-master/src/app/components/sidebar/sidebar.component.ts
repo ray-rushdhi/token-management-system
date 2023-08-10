@@ -48,7 +48,7 @@ export class SidebarComponent {
       this.logout();
     });
 
-    this.getPatients();
+    // this.getPatients();
   }
 
   public getPatients(): void {

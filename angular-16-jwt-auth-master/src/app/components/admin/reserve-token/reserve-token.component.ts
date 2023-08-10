@@ -5,6 +5,8 @@ import { IssueTokenComponent } from '../issue-token/issue-token.component';
 import { DatePipe } from '@angular/common';
 import { TokenService } from '../../../services/token.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Patient } from '../patient-manager/patient';
+import { PatientService } from 'src/app/services/patient.service';
 
 interface DialogData {
   tokenNum: number;
@@ -21,13 +23,47 @@ export class ReserveTokenComponent {
   reservedById: number=0;
   tokenNum: number;
 
+  searchText=""
+
+  public patientId: number=0;
+
+  currentPatient: Patient = {};
+  currentIndex = -1;
+
+  public patients: Patient[] = [];
+
+  selectedPatient: any;
+
   constructor(
     public dialogRef: MatDialogRef<IssueTokenComponent>,
     @Inject(MAT_DIALOG_DATA)  public data: DialogData,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private patientService: PatientService
   ) {
     this.tokenNum = data.tokenNum; // Assign the received tokenNum to the local variable
  
+  }
+
+  ngOnInit() {
+    this.getPatients();
+  }
+
+  
+
+  public getPatients(): void {
+    this.patientService.getPatients().subscribe(
+      (response: Patient[]) => {
+        this.patients = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  setActivePatient(patient: Patient, index: number): void {
+    this.currentPatient = patient;
+    this.currentIndex = index;
   }
 
 
