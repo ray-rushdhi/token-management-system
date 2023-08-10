@@ -69,8 +69,12 @@ export class PatientReserveComponent {
 
 
   reserveToken(): void {
+    const queryDate: string = this.selectedDate
+      ? this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!
+      : '';
     Swal.fire({
-      title: 'Do you want to reserve a token for ${this.selectedDate} ?',
+      
+      title: `Do you want to reserve a token for ${queryDate} ?`,
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -87,17 +91,20 @@ export class PatientReserveComponent {
   
        this.tokenService.createToken(myToken).subscribe(
          response => {
-           if (response.status === 201) {
+           if (response) {
              this.snackBar.open('Token reserved successfully', 'Close');
+             location.reload();
            }
          },
          error => {
            console.log('Error in reserving a token');
            this.snackBar.open('Error in reserving a token', 'Close');
+           location.reload();
          }
        );
       
     });
+    
   }
 
   // reserveToken(){

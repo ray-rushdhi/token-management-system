@@ -1,3 +1,40 @@
 <div class="container">
-  <p>patient-history works!</p>
+  <div class="float-child">
+    <div class="col-md-12">
+      <h1>TOKEN HISTORY</h1>
+
+      <!-- <div class="input-group">
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="patientID"
+          placeholder="Enter Patient ID"
+        />
+        <button class="btn btn-primary" (click)="getTokensForPatient()">
+          Get Tokens
+        </button>
+      </div> -->
+
+      <table class="table table-bordered mt-3" *ngIf="patientTokens">
+        <thead>
+          <tr>
+            <th>Token number</th>
+            <th>Date</th>
+            <th>State</th>
+            <th>Patient ID</th>
+            <th>Patient name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let token of patientTokens">
+            <td>{{ token.tokenNum }}</td>
+            <td>{{ token.selectedDay }}</td>
+            <td>{{ token.state }}</td>
+            <td>{{ token.reservedByID }}</td>
+            <td>{{ token.reservedByName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

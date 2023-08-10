@@ -69,7 +69,9 @@ export class IssueTokenComponent {
         console.log('Error in reserving a token');
         this.snackBar.open('Error in reserving a token', 'Close'); // Display the error in a snackbar
       }
+      
     });
+    location.reload();
   
     // Don't close the dialog if there are validation errors
     if (this.selectedTokenState && this.patientID) {
