@@ -3,19 +3,27 @@ package com.hSenid.demo.services;
 import com.hSenid.demo.exception.UserNotFoundException;
 import com.hSenid.demo.models.Token;
 import com.hSenid.demo.models.User;
+import com.hSenid.demo.payload.request.PassChangeRequest;
 import com.hSenid.demo.payload.request.PatientUpdateRequest;
 import com.hSenid.demo.repository.TokenRepository;
 import com.hSenid.demo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
+
+    @Autowired
+    PasswordEncoder encoder;
 
     private static final Logger logger = LoggerFactory.getLogger(TokenService.class);
 
@@ -82,4 +90,29 @@ public class UserService {
     public void deleteUser(int id) {
         userRepository.deleteUserById(id);
     }
+
+    public ResponseEntity<String> changePassword(PassChangeRequest passChangeRequest) {
+
+        String encodedOldPass = encoder.encode(passChangeRequest.oldPassword());
+        String encodedNewPass = encoder.encode(passChangeRequest.newPassword());
+        User user = this.findUserById(passChangeRequest.patientID());
+        String oldPassword = user.getPassword();
+        logger.info("The encoded old password : "+encodedOldPass);
+        logger.info("The encoded new password : "+encodedNewPass);
+        logger.info("Old password : "+oldPassword);
+
+        if (encoder.matches(passChangeRequest.oldPassword(), oldPassword)) {
+            logger.info("The passwords match");
+            user.setPassword(encodedNewPass);
+            // Save the updated user with the new password
+            userRepository.save(user);
+
+            logger.info("Password changed successfully");
+            return ResponseEntity.ok().body("{\"message\": \"Password changed successfully\"}");
+        } else {
+            logger.error("Passwords do not match");
+            return ResponseEntity.badRequest().body("{\"error\": \"Old password does not match\"}");
+        }
+
+        }
 }

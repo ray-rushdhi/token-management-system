@@ -1,16 +1,19 @@
 package com.hSenid.demo.controllers;
 
+import java.net.http.HttpResponse;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.hSenid.demo.models.User;
+import com.hSenid.demo.payload.request.PassChangeRequest;
 import com.hSenid.demo.payload.request.SignupRequest;
 import com.hSenid.demo.payload.response.MessageResponse;
 import com.hSenid.demo.repository.RoleRepository;
 import com.hSenid.demo.security.jwt.JwtUtils;
 import com.hSenid.demo.services.SequenceGeneratorService;
+import com.hSenid.demo.services.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -62,6 +65,9 @@ public class AuthController {
 
 	@Autowired
 	private SequenceGeneratorService service;
+
+	@Autowired
+	private UserService userService;
 
 
 	@PostMapping("/signin")
@@ -156,6 +162,14 @@ public class AuthController {
 		logger.info("User registered successfully!");
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+
+	@PostMapping("/change-password")
+	public ResponseEntity<String> changePassword(@RequestBody PassChangeRequest passChangeRequest) {
+
+		logger.info("Change password endpoint accessed");
+		ResponseEntity<String> response = userService.changePassword(passChangeRequest);
+		return response;
 	}
 
 //	@PostMapping("/signout")
