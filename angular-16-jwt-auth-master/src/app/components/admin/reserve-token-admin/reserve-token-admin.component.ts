@@ -104,16 +104,24 @@ export class ReserveTokenAdminComponent {
   
     this.tokenService.createToken(myToken).subscribe(
       response => {
-        if (response.status === 200) {
-          this.snackBar.open('Token reserved successfully', 'Close');
-          window.location.reload();
-        }
+          console.log(response.body); // Check the response in the console
+          
+          // Parse the JSON response
+          const jsonResponse = response.body;
+          
+          // Check the message property in the JSON response
+          if (jsonResponse && jsonResponse.message === 'Token reserved successfully') {
+              this.snackBar.open('Token reserved successfully', 'Close');
+          } else {
+              console.log('Invalid response format');
+              this.snackBar.open('Invalid response format', 'Close');
+          }
       },
       error => {
-        console.log('Error in reserving a token');
-        this.snackBar.open('Error in reserving a token', 'Close');
+          console.log('Error in reserving a token');
+          this.snackBar.open('Error in reserving a token', 'Close');
       }
-    );
+  );
   
     // Don't close the dialog if there are validation errors
     if (this.reservedByID) {

@@ -1,4 +1,43 @@
 <div class="container" *ngIf="currentUser; else loggedOut">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">
+        Welcome, <strong>{{ newUser?.username }}</strong>
+      </h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Profile Information</h4>
+          <p>
+            <strong>Name:</strong>
+            {{ newUser?.firstName + " " + newUser?.lastName }}
+          </p>
+          <p><strong>Date of Birth:</strong> {{ newUser?.dob }}</p>
+          <p><strong>Contact Number::</strong> {{ newUser?.contactNum }}</p>
+          <p><strong>Email:</strong> {{ newUser?.email }}</p>
+          <p><strong>Roles:</strong></p>
+          <ul>
+            <li *ngFor="let role of currentUser.roles">{{ role }}</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h4>Actions</h4>
+          <button class="btn btn-primary" (click)="changePassword()">
+            Change Password
+          </button>
+          <!-- Add more buttons or actions here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loggedOut>
+  <p class="text-center mt-5">Please log in to view your profile.</p>
+</ng-template>
+
+<!-- <div class="container" *ngIf="currentUser; else loggedOut">
   <header class="jumbotron">
     <h3>
       <strong>{{ currentUser.username }}</strong> Profile
@@ -19,4 +58,4 @@
   </button>
 </div>
 
-<ng-template #loggedOut> Please login. </ng-template>
+<ng-template #loggedOut> Please login. </ng-template> -->
