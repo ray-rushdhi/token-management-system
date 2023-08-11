@@ -21,29 +21,48 @@ export class TokenHistoryComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   selectedPatient: Patient | undefined;
 
+  searchText=""
+  currentPatient: Patient = {};
+  currentIndex = -1;
+  
+
 
 
   constructor(private tokenService: TokenService, private patientService: PatientService) {}
   
   ngOnInit() {
     this.getPatients();
+    this.dataSource.data = this.patients;
+    this.dataSource.paginator = this.paginator;
+    
+  }
+
+  FilterChange(data: Event){
+    const value = (data.target as HTMLInputElement).value;
+    this.dataSource.filter = value;
+
   }
 
   public getPatients(): void {
     this.patientService.getPatients().subscribe(
       (response: Patient[]) => {
         this.patients = response;
-        this.dataSource.data = this.patients; // Update the data source
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.data = this.patients; 
+        this.dataSource.paginator = this.paginator;// Update the data source
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     );
   }
-  
+
   selectPatient(patient: any) {
     this.selectedPatient = patient;
+  }
+
+  setActivePatient(patient: Patient, index: number): void {
+    this.currentPatient = patient;
+    this.currentIndex = index;
   }
 
   getTokensForPatient(): void {

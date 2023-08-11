@@ -3,6 +3,25 @@
     <div class="col-md-12">
       <h1>TOKEN HISTORY</h1>
 
+      <div class="input-group">
+        <!-- <input
+            type="text"
+            id="form1"
+            class="form-control"
+            placeholder="Search"
+            [(ngModel)]="searchText"
+            (input)="applyFilter()"
+          /> -->
+        <input
+          placeholder="Search patient"
+          matInput
+          (keyup)="FilterChange($event)"
+        />
+        <button>
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+
       <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef
@@ -24,8 +43,11 @@
           *matRowDef="let patient; columns: ['id', 'name']"
           [ngClass]="{ 'selected-row': patient === selectedPatient }"
           (click)="selectPatient(patient)"
-        ></mat-row>
+        >
+          {{ patient | search : searchText }}
+        </mat-row>
       </mat-table>
+      <br />
       <mat-paginator
         [pageSize]="3"
         [pageSizeOptions]="[3, 16, 24]"

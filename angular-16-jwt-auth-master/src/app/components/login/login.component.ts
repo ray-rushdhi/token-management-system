@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     private snack: MatSnackBar,
 ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     // if (this.storageService.isLoggedIn()) {
     //   this.isLoggedIn = true;
     //   this.roles = this.storageService.getUser().roles;
@@ -129,26 +129,4 @@ export class LoginComponent implements OnInit {
 
 
   
-
-
-
-
-    // const { username, password } = this.form;
-
-    // this.authService.login(username, password).subscribe({
-    //   next: (data: any) => {
-    //     this.storageService.saveUser(data);
-    //     this.storageService.saveToken(data.accessToken);
-    //     // console.log(data.accessToken);
-
-    //     this.isLoginFailed = false;
-    //     this.isLoggedIn = true;
-    //     this.roles = this.storageService.getUser().roles;
-    //     this.reloadPage();
-    //   },
-    //   error: err => {
-    //     this.errorMessage = err.error.message;
-    //     this.isLoginFailed = true;
-    //   }
-    // });
   

@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Patient } from './patient';
 import { PatientService } from '../../../services/patient.service';
 import { DetailsDialogComponent } from '../details-dialog/details-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-patient-manager',
@@ -20,6 +22,7 @@ export class PatientManagerComponent {
   currentIndex = -1;
 
   public patients: Patient[] = [];
+
 
   constructor(private patientService: PatientService, private dialog: MatDialog){}
   
