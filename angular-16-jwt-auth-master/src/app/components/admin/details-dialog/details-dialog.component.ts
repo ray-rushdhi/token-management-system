@@ -4,7 +4,7 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import Swal,{SweetAlertOptions, SweetAlertResult}  from 'sweetalert2';
+import Swal  from 'sweetalert2';
 import { PatientService } from '../../../services/patient.service';
 import { Patient } from '../patient-manager/patient';
 

@@ -54,6 +54,7 @@ import { UserDashboardComponent } from './components/user/user-dashboard/user-da
 import { TokenSortPipe } from './_helpers/token-sort.pipe';
 import { SearchPipe } from './_helpers/search.pipe';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
 
 
 
@@ -86,6 +87,7 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
     UserDashboardComponent,
     TokenSortPipe,
     UnauthorizedComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

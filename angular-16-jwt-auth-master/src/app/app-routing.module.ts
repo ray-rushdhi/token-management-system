@@ -21,6 +21,7 @@ import { PatientHistoryComponent } from './components/user/patient-history/patie
 import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { AuthGuard } from './_helpers/auth.guard';
+import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -85,6 +86,10 @@ const routes: Routes = [
       {
         path:'patient-reserve',
         component: PatientReserveComponent
+      },
+      {
+        path:'change-password',
+        component: ChangePasswordComponent
       }
     ],
 

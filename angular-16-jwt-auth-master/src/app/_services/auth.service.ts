@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Gender } from '../components/admin/patient-manager/gender.enum';
+import { PassChangeRequest } from '../requests/PassChangeRequest';
 
 const AUTH_API = 'http://localhost:8080/api/auth/';
 const PATIENTS_API = 'http://localhost:8080/patients/'
@@ -69,5 +70,9 @@ export class AuthService {
 
   logout(): Observable<any> {
     return this.http.post(AUTH_API + 'signout', { }, httpOptions);
+  }
+
+  public changePassword(passChangeRequest: PassChangeRequest): Observable<PassChangeRequest> {
+    return this.http.post<PassChangeRequest>(`${AUTH_API}change-password`, passChangeRequest);
   }
 }
