@@ -6,12 +6,17 @@
     <mat-error *ngIf="!reservedByID">Patient ID is required</mat-error>
   </mat-form-field> -->
   <div class="input-group">
-    <input
+    <!-- <input
       type="text"
       id="form1"
       class="form-control"
       placeholder="Search"
       [(ngModel)]="searchText"
+    /> -->
+    <input
+      placeholder="Search patient"
+      matInput
+      (keyup)="FilterChange($event)"
     />
     <button type="button" class="btn btn-primary">
       <i class="bi bi-search"></i>

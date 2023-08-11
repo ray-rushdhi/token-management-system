@@ -120,6 +120,12 @@ export class ReserveTokenAdminComponent {
       this.dialogRef.close();
     }
   }
+
+  FilterChange(data: Event){
+    const value = (data.target as HTMLInputElement).value;
+    this.dataSource.filter = value;
+
+  }
   
 }
 
