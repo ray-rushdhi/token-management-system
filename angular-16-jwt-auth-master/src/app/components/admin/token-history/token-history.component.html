@@ -14,6 +14,9 @@
           /> -->
         <input
           placeholder="Search patient"
+          type="text"
+          id="form1"
+          class="form-control"
           matInput
           (keyup)="FilterChange($event)"
         />
@@ -59,8 +62,8 @@
           [(ngModel)]="patientID"
           placeholder="Enter Patient ID"
         /> -->
-        <button class="btn btn-primary" (click)="getTokensForPatient()">
-          Get Tokens
+        <button class="btn btn-secondary" (click)="getTokensForPatient()">
+          GET TOKENS
         </button>
       </div>
 

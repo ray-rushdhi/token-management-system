@@ -2,4 +2,14 @@
   <header class="jumbotron">
     <p>HOME</p>
   </header>
+
+  <div *ngIf="isLoggedIn()">
+    <div *ngIf="isAdmin()">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <div *ngIf="isUser()">
+      <app-user-sidebar></app-user-sidebar>
+    </div>
+  </div>
 </div>

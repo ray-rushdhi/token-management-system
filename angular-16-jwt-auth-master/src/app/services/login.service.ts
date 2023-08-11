@@ -62,5 +62,10 @@ export class LoginService {
     localStorage.removeItem('user');
   }
 
+  public getUserRoles(): string[] | null {
+    const user = this.getUser();
+    return user ? user.roles : null;
+  }
+
 
 }

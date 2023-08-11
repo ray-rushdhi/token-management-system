@@ -6,6 +6,7 @@ import { DetailsDialogComponent } from '../details-dialog/details-dialog.compone
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patient-manager',
@@ -62,6 +63,34 @@ export class PatientManagerComponent {
         // onEdit: (id: string) => this.editPatient(id),
         // onRemove: (id: string) => this.remove(id),
       },
+    });
+  }
+
+  remove(id: number): void {
+    Swal.fire({
+      title: 'Do you want to delete the patient?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // The user confirmed the deletion
+        this.patientService.deletePatient(id).subscribe(
+          () => {
+            console.log('Patient removed successfully');
+            window.location.reload();
+            // Optionally, you can update the patient list or perform any other actions upon successful removal.
+          },
+          (error) => {
+            console.error('Error removing patient:', error);
+            // Handle any error message or error handling logic here.
+          }
+        );
+      } else if (result.isDenied) {
+        // The user denied the deletion
+        console.log('Deletion canceled');
+      }
     });
   }
 

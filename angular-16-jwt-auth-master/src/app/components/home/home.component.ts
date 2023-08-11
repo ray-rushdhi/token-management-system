@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../_services/user.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,24 @@ import { UserService } from '../../_services/user.service';
 export class HomeComponent {
   content?: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private loginService: LoginService) { }
+
+  isLoggedIn(): boolean {
+    return this.loginService.isLoggedIn();
+  }
+
+  isAdmin(): boolean {
+    const roles = this.loginService.getUserRoles();
+    console.log("The user is an admin")
+    return roles ? roles.includes('admin') : false;
+    
+  }
+
+  isUser(): boolean {
+    const roles = this.loginService.getUserRoles();
+    console.log("The user is not an admin")
+    return roles ? roles.includes('user') : false;
+  }
 
   // ngOnInit(): void {
   //   this.userService.getPublicContent().subscribe({
