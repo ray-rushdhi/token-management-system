@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,58 +42,6 @@ public class TokenService {
         return tokenRepository.findTokenByTokenNum(id);
     }
 
-//    public Integer findAvailability(LocalDate date){
-//        List<Token> tokens = tokenRepository.findBySelectedDay(date);
-//        Integer noOfTokens = 20-tokens.size();
-//        return noOfTokens;
-//    }
-
-//    public Token createToken(TokenRequest tokenRequest) {
-//        // Check if the maximum limit of 20 tokens per day is reached
-//        LocalDate selectedDay = tokenRequest.selectedDay();
-//        long tokenCountForSelectedDay = tokenRepository.countBySelectedDay(selectedDay);
-//        if (tokenCountForSelectedDay >= 20) {
-//            logger.error("The maximum number of tokens have been issued for {}", selectedDay);
-//            throw new IllegalStateException("Maximum limit of 20 tokens per day reached");
-//        }
-//        Token existingToken = tokenRepository.findTokenByTokenNum(tokenRequest.tokenNum());
-//        if (existingToken != null) {
-//            logger.error("Token number {} is already in use", tokenRequest.tokenNum());
-//            throw new TokenInUseException("Token number is already in use");
-//        }
-//        Token token = new Token();
-//        token.setTokenNum(tokenRequest.tokenNum());
-//        token.setSelectedDay(tokenRequest.selectedDay());
-//        token.setState(tokenRequest.state());
-//        token.setReservedByID(tokenRequest.reservedByID());
-//        token.setReservedByName(UserRepository.findUserById(tokenRequest.reservedByID()).get().getFirstName()+" "+
-//                UserRepository.findUserById(tokenRequest.reservedByID()).get().getLastName());
-//
-//        return tokenRepository.save(token);
-//    }
-
-//    public Token reserveTokenAdmin(TokenRequest tokenRequest) {
-//        LocalDate selectedDay = tokenRequest.selectedDay();
-//        long tokenCountForSelectedDay = tokenRepository.countBySelectedDay(selectedDay);
-//        if (tokenCountForSelectedDay >= 20) {
-//            logger.error("The maximum number of tokens have been issued for {}", selectedDay);
-//            throw new IllegalStateException("Maximum limit of 20 tokens per day reached");
-//        }
-//        Token existingToken = tokenRepository.findTokenByTokenNum(tokenRequest.tokenNum());
-//        if (existingToken != null) {
-//            logger.error("Token number {} is already in use", tokenRequest.tokenNum());
-//            throw new TokenInUseException("Token number is already in use");
-//        }
-//        Token token = new Token();
-//        token.setTokenNum(tokenRequest.tokenNum());
-//        token.setSelectedDay(tokenRequest.selectedDay());
-//        token.setState(TokenState.RESERVED);
-//        token.setReservedByID(tokenRequest.reservedByID());
-//        token.setReservedByName(UserRepository.findUserById(tokenRequest.reservedByID()).get().getFirstName()+" "+
-//                UserRepository.findUserById(tokenRequest.reservedByID()).get().getLastName());
-//
-//        return tokenRepository.save(token);
-//    }
 
     public Token reserveToken(TokenRequest tokenRequest) {
         LocalDate selectedDay = tokenRequest.selectedDay();
@@ -103,11 +50,7 @@ public class TokenService {
             logger.error("The maximum number of tokens have been issued for {}", selectedDay);
             throw new IllegalStateException("Maximum limit of 20 tokens per day reached");
         }
-//        Token existingToken = tokenRepository.findTokenByTokenNum(tokenRequest.tokenNum());
-//        if (existingToken != null) {
-//            logger.error("Token number {} is already in use", tokenRequest.tokenNum());
-//            throw new TokenInUseException("Token number is already in use");
-//        }
+
         Token token = new Token();
         token.setTokenNum(tokenSequenceGenerator.getSequenceNumber(Token.SEQUENCE_NAME));
         token.setSelectedDay(tokenRequest.selectedDay());
@@ -118,46 +61,6 @@ public class TokenService {
 
         return tokenRepository.save(token);
     }
-
-//    public void reserveToken(int reservedByID, LocalDate date) {
-//        List<Token> availableTokens = tokenRepository.findBySelectedDayAndState(date, TokenState.AVAILABLE);
-//
-//        if (availableTokens.isEmpty()) {
-//            logger.error("All tokens have been reserved for the day.");
-//            return;
-//        }
-//
-//        Token firstAvailableToken = availableTokens.get(0);
-//        firstAvailableToken.setState(TokenState.RESERVED);
-//        firstAvailableToken.setReservedByID(reservedByID);
-//        firstAvailableToken.setReservedByName(UserRepository.findUserById(reservedByID).get().getFirstName()+
-//                " "+UserRepository.findUserById(reservedByID).get().getLastName());
-//
-//        // Save the updated token to the database
-//        tokenRepository.save(firstAvailableToken);
-//
-//        logger.info("The token has been reserved for the User with ID: " + reservedByID);
-//
-//    }
-//
-//    public void reserveTokenAdmin(int tokenNum, int reservedById) {
-//
-//        Token token = tokenRepository.findTokenByTokenNum(tokenNum);
-//
-//        if (!UserRepository.findUserById(reservedById).isEmpty()){
-//            token.setReservedByID(reservedById);
-//            token.setState(TokenState.RESERVED);
-//            token.setReservedByName(UserRepository.findUserById(reservedById).get().getFirstName()+" "+
-//                    UserRepository.findUserById(reservedById).get().getLastName());
-//            logger.info("User { successfully reserved the token of ID {}",reservedById,tokenNum);
-//            logger.info(String.valueOf(token));
-//            tokenRepository.save(token);
-//        }else {
-//            logger.error("User not found");
-//            throw new UserNotFoundException("User not found");
-//        }
-//    }
-
 
     public void invalidateToken(int id) {
         try{
@@ -174,22 +77,6 @@ public class TokenService {
             throw new TokenNotFoundException("Token not found");
         }
     }
-
-//    public void validateToken(int id) {
-//        try{
-//            Token existingToken = tokenRepository.findTokenByTokenNum(id);
-//            if (existingToken.getState()==TokenState.AVAILABLE){
-//                logger.error("Token is already in AVAILABLE state");
-//            }else {
-//                existingToken.setState(TokenState.AVAILABLE);
-//                tokenRepository.save(existingToken);
-//                tokenRepository.findTokenByTokenNum(id).setState(TokenState.AVAILABLE);
-//            }
-//        }catch (TokenNotFoundException e){
-//            logger.error("Token with ID {} has not been found", id);
-//            throw new TokenNotFoundException("Token not found");
-//        }
-//    }
 
     public void deleteToken(int tokenNum){
         try{
@@ -216,17 +103,6 @@ public class TokenService {
 
         return tokenRepository.save(existingToken);
     }
-
-//    public void deleteToken(String tokenId) {
-//        // Check if the token exists in the database
-//        Token existingToken = tokenRepository.findById(tokenId)
-//                .orElseThrow(() -> {
-//                    logger.info("Token with ID {} has not been found", tokenRepository.findById(tokenId) );
-//                    return new TokenNotFoundException("Token not found");
-//                });
-//
-//        tokenRepository.delete(existingToken);
-//    }
 
     public List<Token> getTokensByDate(LocalDate date) {
         return tokenRepository.findBySelectedDay(date);

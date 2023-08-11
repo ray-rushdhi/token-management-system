@@ -29,10 +29,4 @@ public class Token {
     private int reservedByID;
     private String reservedByName;
 
-    public Token(String id, int tokenNum, LocalDate selectedDay, TokenState state) {
-        this.id = id;
-        this.tokenNum = tokenNum;
-        this.selectedDay = selectedDay;
-        this.state = state;
-    }
 }

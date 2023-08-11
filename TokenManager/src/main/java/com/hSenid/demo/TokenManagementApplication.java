@@ -16,19 +16,6 @@ public class TokenManagementApplication {
 		SpringApplication.run(TokenManagementApplication.class, args);
 	}
 
-//	@Bean
-//	public CorsFilter corsFilter() {
-//		CorsConfiguration config = new CorsConfiguration();
-//		config.addAllowedOrigin("http://localhost:4200"); // Replace with your allowed origin
-//		config.addAllowedHeader("*");
-//		config.addAllowedMethod("*");
-//
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", config);
-//
-//		return new CorsFilter(source);
-//	}
-
 	@Bean
 	public CorsFilter corsFilter() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();

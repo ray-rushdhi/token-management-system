@@ -14,11 +14,6 @@ import java.util.Objects;
 @Service
 public class TokenSequenceGenerator {
 
-
-//    public TokenSequenceGenerator(MongoOperations mongoOperations) {
-//        this.mongoOperations = mongoOperations;
-//    }
-
     @Autowired
     private MongoOperations mongoOperations;
 

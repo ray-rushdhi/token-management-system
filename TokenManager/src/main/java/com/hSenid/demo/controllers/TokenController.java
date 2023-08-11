@@ -33,43 +33,17 @@ public class TokenController {
         this.tokenService = tokenService;
     }
 
-//    @PostMapping("/issue")
-//    public ResponseEntity<Token> addToken(@RequestBody TokenRequest tokenRequest) {
-//        Token newToken = tokenService.createToken(tokenRequest);
-//        logger.info("Token has been issued successfully");
-//        return new ResponseEntity<>(newToken, HttpStatus.CREATED);
-//    }
-
     @PostMapping("/reserve")
-    public ResponseEntity<String> reserveToken(@RequestBody TokenRequest request) {
+    public ResponseEntity<?> reserveToken(@RequestBody TokenRequest request) {
         try {
             tokenService.reserveToken(request);
-            return ResponseEntity.ok("Token reserved successfully");
+            return ResponseEntity.ok("{\"message\": \"Token reserved successfully\"}");
         } catch (TokenNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\": \"" + e.getMessage() + "\"}");
         } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
-
-//    @PostMapping("/availability")
-//    public ResponseEntity<Integer> findAvailability(@RequestBody LocalDate date) {
-//        Integer availability = tokenService.findAvailability(date);
-//        logger.info("Number of available tokens : "+availability);
-//        return ResponseEntity.ok(availability);
-//    }
-
-//    @PostMapping("/reserve-admin")
-//    public ResponseEntity<String> reserveToken(@RequestBody TokenRequest request) {
-//        try {
-//            tokenService.reserveToken(request);
-//            return ResponseEntity.ok("Token reserved successfully");
-//        } catch (TokenNotFoundException e) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-//        } catch (IllegalStateException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-//        }
-//    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/invalidate/{id}")
@@ -78,13 +52,6 @@ public class TokenController {
         logger.info("Token of ID {} has been successfully invalidated", id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-//    @PutMapping("/validate/{id}")
-//    public ResponseEntity<?> validateId(@PathVariable ("id") int id) {
-//        tokenService.validateToken(id);
-//        logger.info("Token of ID {} has been successfully validated", id);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 
     @GetMapping("/date/{date}")
     public ResponseEntity<List<Token>> findByDate(@PathVariable("date") LocalDate date) {

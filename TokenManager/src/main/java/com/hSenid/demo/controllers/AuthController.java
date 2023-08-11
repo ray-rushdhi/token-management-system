@@ -171,20 +171,4 @@ public class AuthController {
 		ResponseEntity<String> response = userService.changePassword(passChangeRequest);
 		return response;
 	}
-
-//	@PostMapping("/signout")
-//	public void signout(HttpServletResponse response) {
-//		// Invalidate JWT token by clearing it from the client-side (browser)
-//		Cookie jwtCookie = new Cookie("jwtToken", null);
-//		jwtCookie.setMaxAge(0); // Set cookie expiration to 0 to immediately remove it
-//		jwtCookie.setPath("/"); // Set cookie path to ensure it's removed for all paths
-//		response.addCookie(jwtCookie);
-//
-//		// Optionally, you can also clear other cookies or local storage data related to authentication
-//
-//		// Redirect to a specific page after logout (optional)
-//		// For Angular, you can use window.location.href to reload the entire application after logout
-//		response.setHeader("Location", "/api/auth/signin"); // Redirect to the login page
-//		response.setStatus(302); // Set the status code to 302 for redirect
-//	}
 }
