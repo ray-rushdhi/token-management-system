@@ -46,8 +46,6 @@ import { TokenHistoryComponent } from './components/admin/token-history/token-hi
 import { NavbarComponent } from './components/admin/navbar/navbar.component';
 import { DetailsDialogComponent } from './components/admin/details-dialog/details-dialog.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
-import { PatientService } from './services/patient.service';
-import { TokenService } from './services/token.service';
 import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
 import { PatientHistoryComponent } from './components/user/patient-history/patient-history.component';
 import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
@@ -111,7 +109,8 @@ import { ChangePasswordComponent } from './components/user/change-password/chang
     MatSidenavModule,
     MatListModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     {

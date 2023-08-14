@@ -1,0 +1,37 @@
+.welcome-text {
+    font-size: 45px;
+    padding: 50px;
+}
+
+.card-text {
+    font-size: 30px;
+    padding-bottom: 30px;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure full viewport height */
+  }
+
+
+.mat-card {
+    align-items: center;
+    background: #d0cdcd; /* Set the background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a shadow effect */
+    transform: scale(1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    /* width: 30vw; */
+    /* margin-left: 200px; */
+}
+
+.mat-card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Adjust shadow on hover */
+    transform: scale(1.05); /* Increase scale on hover for pop-out effect */
+  }
+
+.logged-in {
+    margin-left: 200px;
+  }
+

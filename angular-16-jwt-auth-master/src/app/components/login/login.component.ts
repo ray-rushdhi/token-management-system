@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
 
-    
 
     // this.loginObj.username = this.form.username;
     // this.loginObj.password = this.form.password;
@@ -84,43 +83,7 @@ export class LoginComponent implements OnInit {
       }
       
       
-    
-
-      // (res: any) => {
-      //   console.log('res',res);
-      //   this.loginService.saveTokenAndUser(res.token, res);
-      //   console.log(this.loginService.getToken);
-      //   console.log(this.loginService.getUser)
-        
-        
-      //   const userRoles = res.roles; // Assuming roles are sent in the API response
-      //   if (userRoles.includes('ROLE_ADMIN')) {
-      //     // Redirect to admin dashboard
-      //     // Example: Use Angular Router to navigate to the admin dashboard
-      //     //window.location.href='/admin';
-      //     //this.login.loginStatusSubject.next(true);
-      //     this.router.navigate(['admin']);
-      //   } else if(userRoles.includes('ROLE_USER')){
-      //     // Redirect to user dashboard
-      //     // Example: Use Angular Router to navigate to the user dashboard
-      //     //window.location.href='/user-dashboard';
-      //     //this.login.loginStatusSubject.next(true);
-      //     this.router.navigate(['user-dashboard']);
-      //   }else{
-      //     this.loginService.logout();
-
-      //   }
-          
-      // },
-      // (err) => {
-      //   this.errorMessage = err.error.message;
-      //   this.isLoginFailed = true;
-      //   console.log('Error!');
-      //   console.log(err);
-      //   // this.snack.open("Invalid Details!!! Try again",'',{
-      //   //   duration:3000,
-      //   // });
-      // }
+  
     
   });
   }

@@ -1,15 +1,32 @@
-<div class="container">
-  <header class="jumbotron">
-    <p>HOME</p>
-  </header>
+<div class="center-container" [class.logged-in]="isLoggedIn()">
+  <div class="container">
+    <!-- <header class="jumbotron">
+      <p>HOME</p>
+    </header> -->
 
-  <div *ngIf="isLoggedIn()">
-    <div *ngIf="isAdmin()">
-      <app-sidebar></app-sidebar>
-    </div>
+    <div *ngIf="isLoggedIn()">
+      <div *ngIf="isAdmin()">
+        <app-sidebar></app-sidebar>
+      </div>
+      <!-- <app-sidebar></app-sidebar>
+      <app-user-sidebar></app-user-sidebar> -->
 
-    <div *ngIf="isUser()">
-      <app-user-sidebar></app-user-sidebar>
+      <div *ngIf="isUser()">
+        <app-user-sidebar></app-user-sidebar>
+      </div>
     </div>
+    <mat-card class="mat-card" [@fadeIn]>
+      <mat-card-content>
+        <p class="welcome-text" [@fadeInText]>Welcome!<br /></p>
+        <p class="card-text">
+          Get in touch with the best that the medical industry has to offer
+        </p>
+        <p class="card-text">Reserve your tokens today!</p>
+        <button class="btn btn-secondary" (click)="openReserve()">
+          <i class="bi bi-caret-right-square-fill"></i>
+          RESERVE A TOKEN
+        </button>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>

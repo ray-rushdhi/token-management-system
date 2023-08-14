@@ -4,14 +4,6 @@
       <h1>TOKEN HISTORY</h1>
 
       <div class="input-group">
-        <!-- <input
-            type="text"
-            id="form1"
-            class="form-control"
-            placeholder="Search"
-            [(ngModel)]="searchText"
-            (input)="applyFilter()"
-          /> -->
         <input
           placeholder="Search patient"
           type="text"
@@ -56,12 +48,6 @@
         [pageSizeOptions]="[3, 16, 24]"
       ></mat-paginator>
       <div class="input-group">
-        <!-- <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="patientID"
-          placeholder="Enter Patient ID"
-        /> -->
         <button class="btn btn-secondary" (click)="getTokensForPatient()">
           GET TOKENS
         </button>

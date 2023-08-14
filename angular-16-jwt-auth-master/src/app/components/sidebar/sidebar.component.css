@@ -11,6 +11,12 @@ p {
   color: #fff;
 }
 
+.left-aligned-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .sidebar {
   background-color: rgb(103, 91, 91); /* Change to the desired background color */
   color: #fff; /* Change to the desired text color */
@@ -20,6 +26,7 @@ p {
   top: 56px; /* Set to the height of the navbar */
   z-index: 1000; 
 }
+
 
 /* .sidebar {
     background-color: #333; 

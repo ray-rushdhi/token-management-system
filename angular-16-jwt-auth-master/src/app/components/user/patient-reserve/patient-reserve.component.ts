@@ -74,31 +74,6 @@ export class PatientReserveComponent {
       );
     }
   }
-  
-  // checkAvailability(){
-  //   if(!this.selectedDate){
-
-  //     this.snackBar.open('Please select a date first', 'Close');
-  //   } else {
-  //     const queryDate: string = this.selectedDate
-  //     ? this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!
-  //     : '';
-  //     this.tokenService.findByDate(queryDate).subscribe(
-      
-  //       (response: Token[]) => {
-  //         this.tokens = response;
-  //         this.showAvailability = true;
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         alert(error.message);
-  //       }
-  //     );
-  //     this.availability = 20 - this.tokens.length;
-  //     console.log(this.tokens);
-  //     console.log(queryDate);
-  //   }
-    
-  // }
 
 
   reserveToken(): void {
