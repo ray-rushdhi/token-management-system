@@ -11,6 +11,8 @@ import com.hSenid.demo.repository.UserRepository;
 import com.hSenid.demo.repository.TokenRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,11 +29,14 @@ public class TokenService {
 
     private final TokenSequenceGenerator tokenSequenceGenerator;
 
+    private final EmailSenderService senderService;
+
     public TokenService(TokenRepository tokenRepository, UserRepository UserRepository,
-                        TokenSequenceGenerator tokenSequenceGenerator) {
+                        TokenSequenceGenerator tokenSequenceGenerator, EmailSenderService senderService) {
         this.tokenRepository = tokenRepository;
         this.UserRepository = UserRepository;
         this.tokenSequenceGenerator = tokenSequenceGenerator;
+        this.senderService = senderService;
     }
 
     public List<Token> getAllTokens() {
@@ -59,6 +64,23 @@ public class TokenService {
         token.setReservedByName(UserRepository.findUserById(tokenRequest.reservedByID()).get().getFirstName()+" "+
                 UserRepository.findUserById(tokenRequest.reservedByID()).get().getLastName());
 
+        int patID = token.getReservedByID();
+        String email = UserRepository.findUserById(patID).get().getEmail();
+
+        sendMail(email,
+                "Dear Sir/Madam,\n" +
+                        "\n" +
+                        "Your token for the date " + tokenRequest.selectedDay() + " has been reserved successfully.\n" +
+                        "Here are the details of the reservation:\n" +
+                        "\n" +
+                        "Patient Name: " + token.getReservedByName() + "\n" +
+                        "Reserved Date: " + token.getSelectedDay() + "\n" +
+                        "Token Number: " + token.getTokenNum() + "\n" +
+                        "\n" +
+                        "Please do not hesitate to contact us for further clarifications.\n" +
+                        "\n" +
+                        "Thank you,\n" +
+                        "Clinic");
         return tokenRepository.save(token);
     }
 
@@ -115,6 +137,12 @@ public class TokenService {
                     return new UserNotFoundException("User not found");
                 });
         return tokenRepository.findByReservedByID(reservedBy);
+    }
+
+    public void sendMail(String email, String message) {
+        senderService.sendEmail(email,
+                "Token Reserved Successfully",
+                message);
     }
 
 }
