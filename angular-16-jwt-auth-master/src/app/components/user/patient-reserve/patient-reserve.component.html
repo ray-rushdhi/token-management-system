@@ -30,6 +30,7 @@
           ><p>Number of available tokens: {{ availability }}</p></strong
         >
         <button
+          *ngIf="availability > 0"
           type="button"
           class="btn btn-primary dialog-button"
           (click)="reserveToken()"

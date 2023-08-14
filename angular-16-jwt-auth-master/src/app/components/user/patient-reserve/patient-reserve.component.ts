@@ -147,27 +147,5 @@ export class PatientReserveComponent {
     
   }
 
-  // reserveToken(){
-
-  //   console.log('Selected Date:', this.selectedDate);
-  //   console.log('Patient ID:', this.reservedByID);
   
-  
-  //   const myToken = new TokenImplementation(this.selectedDate,  this.reservedByID);
-
-  //   console.log(this.selectedDate)
-  //   console.log('Reserved by ID :', this.reservedByID);
-  
-  //   this.tokenService.createToken(myToken).subscribe(
-  //     response => {
-  //       if (response.status === 200) {
-  //         this.snackBar.open('Token reserved successfully', 'Close');
-  //       }
-  //     },
-  //     error => {
-  //       console.log('Error in reserving a token');
-  //       this.snackBar.open('Error in reserving a token', 'Close');
-  //     }
-  //   );
-  // }
 }
