@@ -2,6 +2,7 @@ package com.hSenid.demo.controllers;
 
 import com.hSenid.demo.models.User;
 import com.hSenid.demo.payload.request.PatientUpdateRequest;
+import com.hSenid.demo.payload.response.UserResponse;
 import com.hSenid.demo.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,8 @@ public class PatientController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.findAllUsers();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> users = userService.findAllUsers();
         logger.info("Successfully accessed all the Users");
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

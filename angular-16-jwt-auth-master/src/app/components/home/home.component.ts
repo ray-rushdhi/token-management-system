@@ -45,10 +45,18 @@ export class HomeComponent {
     const roles = this.loginService.getUserRoles();
     console.log(roles);
     return roles ? roles.includes('ROLE_USER') && !roles.includes('ROLE_ADMIN') : false;
-}
+ }
 
   openReserve() {
     this.router.navigate(['user/patient-reserve']);
+  }
+
+  openSignup() {
+    this.router.navigate(['register']);
+  }
+
+  openLogin() {
+    this.router.navigate(['login']);
   }
 
   // ngOnInit(): void {

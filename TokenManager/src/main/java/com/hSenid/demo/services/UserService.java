@@ -5,6 +5,7 @@ import com.hSenid.demo.models.Token;
 import com.hSenid.demo.models.User;
 import com.hSenid.demo.payload.request.PassChangeRequest;
 import com.hSenid.demo.payload.request.PatientUpdateRequest;
+import com.hSenid.demo.payload.response.UserResponse;
 import com.hSenid.demo.repository.TokenRepository;
 import com.hSenid.demo.repository.UserRepository;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +40,15 @@ public class UserService {
         this.service = service;
     }
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> findAllUsers() {
+//         userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        List<UserResponse> userResponseList = new ArrayList<>();
+        for (User user : users) {
+            userResponseList.add(new UserResponse(user.getId(),user.getFirstName(), user.getLastName(), user.getGender(),
+                    user.getDob(),user.getContactNum(),user.getEmail()));
+        }
+        return userResponseList;
     }
 
     public User addUser(User user) {

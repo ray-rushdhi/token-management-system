@@ -1,7 +1,6 @@
 package com.hSenid.demo.services;
 
 import com.hSenid.demo.exception.UserNotFoundException;
-import com.hSenid.demo.exception.TokenInUseException;
 import com.hSenid.demo.exception.TokenNotFoundException;
 import com.hSenid.demo.models.User;
 import com.hSenid.demo.models.Token;
@@ -11,8 +10,6 @@ import com.hSenid.demo.repository.UserRepository;
 import com.hSenid.demo.repository.TokenRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
