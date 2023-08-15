@@ -112,6 +112,7 @@ export class ReserveTokenAdminComponent {
           // Check the message property in the JSON response
           if (jsonResponse && jsonResponse.message === 'Token reserved successfully') {
               this.snackBar.open('Token reserved successfully', 'Close');
+              window.location.reload();
           } else {
               console.log('Invalid response format');
               this.snackBar.open('Invalid response format', 'Close');

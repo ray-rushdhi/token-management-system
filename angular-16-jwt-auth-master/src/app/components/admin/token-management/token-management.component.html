@@ -39,7 +39,16 @@
         class="btn-addPatient"
         style="display: flex; justify-content: center"
       >
+        <!-- <button
+          *ngIf="availability > 0"
+          type="button"
+          class="btn btn-primary dialog-button"
+          (click)="openDateSelectorDialog()"
+        >
+          <i class="bi m-2 bi-ticket-perforated"></i>RESERVE
+        </button> -->
         <a
+          *ngIf="availability > 0"
           class="m-3 btn btn-secondary tooltips"
           data-placement="top"
           data-toggle="tooltip"
@@ -47,6 +56,9 @@
           (click)="openDateSelectorDialog()"
           >ISSUE TOKENS</a
         >
+        <p class="max-error" *ngIf="availability == 0">
+          Maximum number of tokens have been reserved for the day
+        </p>
       </div>
 
       <table class="table table-bordered">

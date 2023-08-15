@@ -33,6 +33,8 @@ export class TokenManagementComponent {
   searchQuery: number=0;
   searchResults: Token[] = [];
 
+  availability: number = 0;
+
   public tokens: any[] = [];
 
   constructor(private tokenService: TokenService, private dialog: MatDialog, private patientService: PatientService,
@@ -42,12 +44,28 @@ export class TokenManagementComponent {
   ngOnInit() {
     this.selectedDate = new Date();
     this.onDateChange();
+
+    
   }
 
   onDateChange(): void {
     // Format the selected date and store it in the selectedDay variable
     this.selectedDate = this.selectedDate ? new Date(this.selectedDate) : null;
     this.getTokens();
+    const queryDate: string = this.selectedDate
+        ? this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!
+        : '';
+  
+      this.tokenService.findByDate(queryDate).subscribe(
+        (response: Token[]) => {
+          this.tokens = response;
+          // Perform availability calculation and other logic here
+          this.availability = 20 - this.tokens.length;
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
   }
 
   getTokens(): void {

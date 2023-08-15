@@ -41,17 +41,8 @@ export class NavbarComponent {
       const user = this.storageService.getUser();
       this.roles = user.roles;
 
-      // this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-
-
       this.username = user.username;
     }
-
-    // this.eventBusSub = this.eventBusService.on('logout', () => {
-    //   this.logout();
-    // });
-
-    // this.getPatients();
   }
 
   public getPatients(): void {
@@ -70,6 +61,6 @@ export class NavbarComponent {
     //window.location.reload();
     //this.isLoggedIn=false;
     //this.user=null;
-    this.router.navigate(['login']); // Navigate to the login page after logging out
+    this.router.navigate(['']); // Navigate to the login page after logging out
   }
 }

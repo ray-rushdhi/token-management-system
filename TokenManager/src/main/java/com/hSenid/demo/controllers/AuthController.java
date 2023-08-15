@@ -14,8 +14,6 @@ import com.hSenid.demo.repository.RoleRepository;
 import com.hSenid.demo.security.jwt.JwtUtils;
 import com.hSenid.demo.services.SequenceGeneratorService;
 import com.hSenid.demo.services.UserService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +72,7 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+		logger.info("The /signin endpoint has been reached");
 		try {
 			Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -87,6 +86,7 @@ public class AuthController {
 					.collect(Collectors.toList());
 
 			logger.info("User {} has successfully logged in", loginRequest.getUsername());
+			logger.info("Token successfully generated");
 			return ResponseEntity.ok(new JwtResponse(jwt,
 					userDetails.getId(),
 					userDetails.getUsername(),
@@ -94,10 +94,12 @@ public class AuthController {
 					roles));
 		} catch (BadCredentialsException e) {
 			// Handle invalid credentials (password doesn't match)
+			logger.warn("Passwords don't match");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 					.body(new MessageResponse("Invalid username or password"));
 		} catch (UsernameNotFoundException e) {
 			// Handle user not found
+			logger.warn("User not found");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 					.body(new MessageResponse("User not found"));
 		}
@@ -105,6 +107,7 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+		logger.info("The /signup endpoint has been reached");
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			logger.error("Username is already taken");
 			return ResponseEntity
@@ -121,10 +124,16 @@ public class AuthController {
 		}
 
 		// Create new user's account
-		User user = new User(signUpRequest.getFirstName(), signUpRequest.getLastName(), signUpRequest.getGender(),
-				signUpRequest.getDob(), signUpRequest.getContactNum(),signUpRequest.getUsername(),
-							 signUpRequest.getEmail(),
-							 encoder.encode(signUpRequest.getPassword()));
+		User user = new User();
+		user.setFirstName(signUpRequest.getFirstName());
+		user.setLastName(signUpRequest.getFirstName());
+		user.setGender(signUpRequest.getGender());
+		user.setDob(signUpRequest.getDob());
+		user.setContactNum(signUpRequest.getContactNum());
+		user.setUsername(signUpRequest.getUsername());
+		user.setEmail(signUpRequest.getEmail());
+		user.setPassword(encoder.encode(signUpRequest.getPassword()));
+
 		logger.info("Password has been encoded");
 
 		Set<String> strRoles = signUpRequest.getRoles();

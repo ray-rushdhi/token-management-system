@@ -40,7 +40,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
             userDetails.getAuthorities());
         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
+        logger.info("User successfully authenticated using JWT");
         SecurityContextHolder.getContext().setAuthentication(authentication);
       }
     } catch (Exception e) {

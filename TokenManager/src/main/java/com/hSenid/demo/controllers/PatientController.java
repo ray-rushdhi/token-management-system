@@ -13,11 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping("/patients")
+@RequestMapping("/api/patients")
 public class PatientController {
 
     private static final Logger logger = LoggerFactory.getLogger(PatientController.class);
@@ -31,6 +31,7 @@ public class PatientController {
 
     @GetMapping("/all")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
+        logger.info("The /patients/all endpoint has been accessed");
         List<UserResponse> users = userService.findAllUsers();
         logger.info("Successfully accessed all the Users");
         return new ResponseEntity<>(users, HttpStatus.OK);
@@ -38,6 +39,7 @@ public class PatientController {
 
     @GetMapping("/find/{id}")
     public ResponseEntity<User> getUserById(@PathVariable ("id") int id) {
+        logger.info("The /patients/find/{id} endpoint has been accessed");
         User User = userService.findUserById(id);
         logger.info("Successfully retrieved {} from the database",userService.findUserById(id));
         return new ResponseEntity<>(User, HttpStatus.OK);
@@ -45,6 +47,7 @@ public class PatientController {
 
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User User) {
+        logger.info("The /patients/add endpoint has been accessed");
         User newUser = userService.addUser(User);
         logger.info("Successfully added User {} to the database",newUser.getFirstName()+" "+newUser.getLastName());
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
@@ -52,6 +55,7 @@ public class PatientController {
 
     @PutMapping("/update")
     public ResponseEntity<HttpStatus> updateUser(@RequestBody PatientUpdateRequest patientUpdateRequest) {
+        logger.info("The patients/update endpoint has been accessed");
         userService.updateUser(patientUpdateRequest);
         logger.info("Successfully updated User {}",patientUpdateRequest.firstName()+" "+patientUpdateRequest.lastName());
         return new ResponseEntity<>( HttpStatus.OK);
@@ -59,7 +63,7 @@ public class PatientController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable ("id") int id) {
-
+        logger.info("The /patients/delete/{id} endpoint has been accessed");
         User userToDelete = userService.findUserById(id);
         if (userToDelete != null) {
             logger.info("User {} successfully deleted from the database", userToDelete);
@@ -67,6 +71,7 @@ public class PatientController {
 
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
+            logger.error("Invalid user ID");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

@@ -15,18 +15,39 @@
         <app-user-sidebar></app-user-sidebar>
       </div>
     </div>
-    <mat-card class="mat-card" [@fadeIn]>
-      <mat-card-content>
-        <p class="welcome-text" [@fadeInText]>Welcome!<br /></p>
-        <p class="card-text">
-          Get in touch with the best that the medical industry has to offer
-        </p>
-        <p class="card-text">Reserve your tokens today!</p>
-        <button class="btn btn-secondary" (click)="openReserve()">
-          <i class="bi bi-caret-right-square-fill"></i>
-          RESERVE A TOKEN
-        </button>
-      </mat-card-content>
-    </mat-card>
+    <div *ngIf="isLoggedIn()">
+      <mat-card class="mat-card" [@fadeIn]>
+        <mat-card-content>
+          <p class="welcome-text" [@fadeInText]>Welcome!<br /></p>
+          <p class="card-text">
+            Get in touch with the best that the medical industry has to offer
+          </p>
+          <p class="card-text">Reserve your tokens today!</p>
+          <button class="btn btn-secondary" (click)="openReserve()">
+            <i class="bi bi-caret-right-square-fill"></i>
+            RESERVE A TOKEN
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="!isLoggedIn()">
+      <mat-card class="mat-card" [@fadeIn]>
+        <mat-card-content>
+          <p class="welcome-text" [@fadeInText]>Welcome!<br /></p>
+          <p class="card-text">
+            Get in touch with the best that the medical industry has to offer
+          </p>
+          <p class="card-text">Signup to reserve your tokens today!</p>
+          <button class="btn btn-secondary mr-3" (click)="openSignup()">
+            <i class="bi bi-caret-right-square-fill"></i>
+            Signup
+          </button>
+          <button class="btn btn-secondary" (click)="openLogin()">
+            <i class="bi bi-caret-right-square-fill"></i>
+            Login
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 </div>

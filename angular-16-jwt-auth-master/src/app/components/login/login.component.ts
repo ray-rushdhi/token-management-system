@@ -63,13 +63,13 @@ export class LoginComponent implements OnInit {
           // Example: Use Angular Router to navigate to the admin dashboard
           //window.location.href='/admin';
           //this.login.loginStatusSubject.next(true);
-          this.router.navigate(['admin']);
+          this.router.navigate(['admin/patient-manager']);
         } else if(userRoles.includes('ROLE_USER')){
           // Redirect to user dashboard
           // Example: Use Angular Router to navigate to the user dashboard
           //window.location.href='/user-dashboard';
           //this.login.loginStatusSubject.next(true);
-          this.router.navigate(['user']);
+          this.router.navigate(['']);
         }else{
           this.loginService.logout();
 

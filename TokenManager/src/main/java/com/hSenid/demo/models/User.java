@@ -50,20 +50,7 @@ public class User implements Serializable {
   @DBRef
   private Set<Role> roles = new HashSet<>();
 
-  public User(String firstName, String lastName, Gender gender, LocalDate dob, Long contactNum, String username, String email, String password) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.gender = gender;
-    this.dob = dob;
-    this.contactNum = contactNum;
-    this.username = username;
-    this.email = email;
-    this.password = password;
-  }
-
-  public User(String username, String email, String password) {
-    this.username = username;
-    this.email = email;
-    this.password = password;
-  }
 }
+
+
+

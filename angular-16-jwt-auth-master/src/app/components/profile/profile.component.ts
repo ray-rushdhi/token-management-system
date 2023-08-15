@@ -16,11 +16,14 @@ export class ProfileComponent implements OnInit {
   patientId: number = 0;
   newUser: any;
 
+  userRoles?: any[];
+
   constructor(private loginService: LoginService, private router: Router, private patientService: PatientService) { }
 
   ngOnInit(): void {
     this.currentUser = this.loginService.getUser();
     this.getPatient();
+    
   }
 
   public getPatient(): void {
@@ -28,6 +31,7 @@ export class ProfileComponent implements OnInit {
     this.patientService.getPatientById(this.patientId).subscribe(
       (response: Patient) => {
         this.newUser = response;
+        
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
