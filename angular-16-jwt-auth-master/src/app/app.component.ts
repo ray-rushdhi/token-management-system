@@ -4,7 +4,6 @@ import { StorageService } from './_services/storage.service';
 import { AuthService } from './_services/auth.service';
 import { EventBusService } from './_shared/event-bus.service';
 
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

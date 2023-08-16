@@ -83,6 +83,7 @@ public class UserService {
 
             return Optional.of(user);
         } else {
+            logger.error("User not found");
             return Optional.empty(); // User not found
         }
     }
@@ -95,18 +96,15 @@ public class UserService {
     }
 
     public void deleteUser(int id) {
+        logger.info("User of ID {} has been successfully deleted", id);
         userRepository.deleteUserById(id);
     }
 
     public ResponseEntity<String> changePassword(PassChangeRequest passChangeRequest) {
 
-        String encodedOldPass = encoder.encode(passChangeRequest.oldPassword());
         String encodedNewPass = encoder.encode(passChangeRequest.newPassword());
         User user = this.findUserById(passChangeRequest.patientID());
         String oldPassword = user.getPassword();
-        logger.info("The encoded old password : "+encodedOldPass);
-        logger.info("The encoded new password : "+encodedNewPass);
-        logger.info("Old password : "+oldPassword);
 
         if (encoder.matches(passChangeRequest.oldPassword(), oldPassword)) {
             logger.info("The passwords match");

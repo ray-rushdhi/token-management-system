@@ -37,10 +37,12 @@ public class TokenService {
     }
 
     public List<Token> getAllTokens() {
+        logger.info("All tokens have been successfully retrieved");
         return tokenRepository.findAll();
     }
 
     public Token findTokenById(int id) {
+        logger.info("Token of number {} has been successfully retrieved", id);
         return tokenRepository.findTokenByTokenNum(id);
     }
 
@@ -48,6 +50,7 @@ public class TokenService {
     public Token reserveToken(TokenRequest tokenRequest) {
         LocalDate selectedDay = tokenRequest.selectedDay();
         long tokenCountForSelectedDay = tokenRepository.countBySelectedDay(selectedDay);
+        logger.info("The number of tokens for the date of {} is {}", selectedDay, tokenCountForSelectedDay);
         if (tokenCountForSelectedDay >= 20) {
             logger.error("The maximum number of tokens have been issued for {}", selectedDay);
             throw new IllegalStateException("Maximum limit of 20 tokens per day reached");
@@ -63,6 +66,8 @@ public class TokenService {
 
         int patID = token.getReservedByID();
         String email = UserRepository.findUserById(patID).get().getEmail();
+        tokenRepository.save(token);
+        logger.info("Token has been successfully saved to the database");
 
         sendMail(email,
                 "Dear Sir/Madam,\n" +
@@ -78,6 +83,7 @@ public class TokenService {
                         "\n" +
                         "Thank you,\n" +
                         "Clinic");
+        logger.info("The email has been successfully sent");
         return tokenRepository.save(token);
     }
 
@@ -88,6 +94,7 @@ public class TokenService {
                 logger.error("Token has already been invalidated");
             }else {
                 existingToken.setState(TokenState.INVALIDATED);
+                logger.info("Token has been successfully invalidated");
                 tokenRepository.save(existingToken);
                 tokenRepository.findTokenByTokenNum(id).setState(TokenState.INVALIDATED);
             }
@@ -100,6 +107,7 @@ public class TokenService {
     public void deleteToken(int tokenNum){
         try{
             tokenRepository.deleteTokenByTokenNum(tokenNum);
+            logger.info("Token of number {} has been successfully deleted", tokenNum);
         }catch (TokenNotFoundException e){
             logger.error("Token number {} has not been found", tokenNum);
             throw new TokenNotFoundException("Token not found");
@@ -124,15 +132,17 @@ public class TokenService {
     }
 
     public List<Token> getTokensByDate(LocalDate date) {
+        logger.info("Tokens of the date {} have been successfully retrieved", date);
         return tokenRepository.findBySelectedDay(date);
     }
 
     public List<Token> getTokensByUser(int reservedBy) {
-        User User = UserRepository.findUserById(reservedBy)
+        User user = UserRepository.findUserById(reservedBy)
                 .orElseThrow(() -> {
                     logger.info("User with ID {} has not been found", UserRepository.findUserById(reservedBy));
                     return new UserNotFoundException("User not found");
                 });
+        logger.info("Tokens of {} have been successfully retrieved", user.getFirstName()+" "+user.getLastName());
         return tokenRepository.findByReservedByID(reservedBy);
     }
 
