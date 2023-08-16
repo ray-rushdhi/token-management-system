@@ -41,12 +41,11 @@ public class UserService {
     }
 
     public List<UserResponse> findAllUsers() {
-//         userRepository.findAll();
         List<User> users = userRepository.findAll();
         List<UserResponse> userResponseList = new ArrayList<>();
         for (User user : users) {
             userResponseList.add(new UserResponse(user.getId(),user.getFirstName(), user.getLastName(), user.getGender(),
-                    user.getDob(),user.getContactNum(),user.getEmail()));
+                    user.getDob(),user.getContactNum(),user.getEmail(), user.getRoles()));
         }
         return userResponseList;
     }

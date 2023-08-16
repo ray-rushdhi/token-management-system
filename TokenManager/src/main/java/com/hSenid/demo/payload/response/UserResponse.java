@@ -1,8 +1,11 @@
 package com.hSenid.demo.payload.response;
 
 import com.hSenid.demo.models.Gender;
+import com.hSenid.demo.models.Role;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public record UserResponse(
         int id,
@@ -11,7 +14,8 @@ public record UserResponse(
         Gender gender,
         LocalDate dob,
         Long contactNum,
-        String email
+        String email,
+        Set<Role> roles
 
 ) {
 }

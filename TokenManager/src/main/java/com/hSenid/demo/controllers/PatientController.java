@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/api/patients")
 public class PatientController {
 
@@ -29,6 +28,7 @@ public class PatientController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         logger.info("The /patients/all endpoint has been accessed");
@@ -45,6 +45,7 @@ public class PatientController {
         return new ResponseEntity<>(User, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User User) {
         logger.info("The /patients/add endpoint has been accessed");
@@ -53,6 +54,7 @@ public class PatientController {
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<HttpStatus> updateUser(@RequestBody PatientUpdateRequest patientUpdateRequest) {
         logger.info("The patients/update endpoint has been accessed");
@@ -61,6 +63,7 @@ public class PatientController {
         return new ResponseEntity<>( HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable ("id") int id) {
         logger.info("The /patients/delete/{id} endpoint has been accessed");
