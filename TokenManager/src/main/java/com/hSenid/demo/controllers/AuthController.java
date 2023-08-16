@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.hSenid.demo.models.User;
+import com.hSenid.demo.models.UserState;
 import com.hSenid.demo.payload.request.PassChangeRequest;
 import com.hSenid.demo.payload.request.SignupRequest;
 import com.hSenid.demo.payload.response.MessageResponse;
@@ -133,6 +134,7 @@ public class AuthController {
 		user.setUsername(signUpRequest.getUsername());
 		user.setEmail(signUpRequest.getEmail());
 		user.setPassword(encoder.encode(signUpRequest.getPassword()));
+		user.setState(UserState.ACTIVE);
 
 		logger.info("Password has been encoded");
 

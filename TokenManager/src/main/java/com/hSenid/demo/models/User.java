@@ -50,6 +50,7 @@ public class User implements Serializable {
   @DBRef
   private Set<Role> roles = new HashSet<>();
 
+  private UserState state;
 
 
 }
