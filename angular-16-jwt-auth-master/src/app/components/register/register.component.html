@@ -191,6 +191,26 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="confirmPassword"
+            [(ngModel)]="form.confirmPassword"
+            required
+            #confirmPassword="ngModel"
+            [ngClass]="{ 'is-invalid': f.submitted && confirmPassword.errors }"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="confirmPassword.errors && f.submitted"
+          >
+            <div *ngIf="confirmPassword.errors['required']">
+              Confirm Password is required
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
           <button type="submit" class="btn btn-secondary btn-block">
             Sign Up
           </button>

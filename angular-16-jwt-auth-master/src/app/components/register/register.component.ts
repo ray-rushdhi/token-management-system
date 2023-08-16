@@ -22,7 +22,8 @@ export class RegisterComponent {
     contactNum: null,
     username: null,
     email: null,
-    password: null
+    password: null,
+    confirmPassword: null
   };
   isSuccessful = false;
   isSignUpFailed = false;
@@ -32,7 +33,13 @@ export class RegisterComponent {
 
   onSubmit(): void {
     const { firstName, lastName, gender, dob, contactNum,
-      username, email, password } = this.form;
+      username, email, password, confirmPassword } = this.form;
+
+      if (password !== confirmPassword) {
+        this.errorMessage = 'Passwords do not match';
+        this.isSignUpFailed = true;
+        return;
+      }
 
     this.authService.register(firstName, lastName, gender, dob, contactNum, username, email, password).subscribe({
       next: data => {

@@ -14,7 +14,9 @@
             {{ newUser?.firstName + " " + newUser?.lastName }}
           </p>
           <p><strong>Date of Birth:</strong> {{ newUser?.dob }}</p>
-          <p><strong>Contact Number::</strong> {{ newUser?.contactNum }}</p>
+          <p>
+            <strong>Contact Number:</strong> {{ "0" + newUser?.contactNum }}
+          </p>
           <p><strong>Email:</strong> {{ newUser?.email }}</p>
           <p *ngIf="currentUser.roles.includes('ROLE_ADMIN')">
             <strong>Roles:</strong>
