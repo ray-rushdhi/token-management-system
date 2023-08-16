@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Gender } from '../patient-manager/gender.enum';
-import { Route, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 
-
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-add-patient',
+  templateUrl: './add-patient.component.html',
+  styleUrls: ['./add-patient.component.css']
 })
-export class RegisterComponent {
+export class AddPatientComponent {
 
   genderOptions: string[] = Object.values(Gender);
   
@@ -28,7 +25,7 @@ export class RegisterComponent {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private authService: AuthService) { }
 
   onSubmit(): void {
     const { firstName, lastName, gender, dob, contactNum,
@@ -39,10 +36,6 @@ export class RegisterComponent {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.snackBar.open('Registration successful', 'Close', {
-          duration: 3000, 
-        });
-        this.router.navigate(['login']);
       },
       error: err => {
         this.errorMessage = err.error.message;

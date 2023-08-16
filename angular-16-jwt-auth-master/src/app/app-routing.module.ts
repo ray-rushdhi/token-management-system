@@ -6,22 +6,19 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { PatientManagerComponent } from './components/admin/patient-manager/patient-manager.component';
-import { TokenManagementComponent } from './components/admin/token-management/token-management.component';
-import { AddPatientComponent } from './components/admin/add-patient/add-patient.component';
-import { EditPatientComponent } from './components/admin/edit-patient/edit-patient.component';
-import { IssueTokenComponent } from './components/admin/issue-token/issue-token.component';
-import { ReserveTokenComponent } from './components/admin/reserve-token/reserve-token.component';
-import { TokenHistoryComponent } from './components/admin/token-history/token-history.component';
-import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { AddPatientComponent } from './components/add-patient/add-patient.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { UserSidebarComponent } from './components/user/user-sidebar/user-sidebar.component';
-import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
-import { PatientHistoryComponent } from './components/user/patient-history/patient-history.component';
-import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
-import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 import { AuthGuard } from './_helpers/auth.guard';
-import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { UserGuard } from './_helpers/user.guard';
+import { PatientManagerComponent } from './components/patient-manager/patient-manager.component';
+import { TokenManagementComponent } from './components/token-management/token-management.component';
+import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { TokenHistoryComponent } from './components/token-history/token-history.component';
+import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
+import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
+import { PatientHistoryComponent } from './components/patient-history/patient-history.component';
+import { PatientReserveComponent } from './components/patient-reserve/patient-reserve.component';
 
 
 const routes: Routes = [
@@ -29,16 +26,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, pathMatch:'full', },
   { path: 'login', component: LoginComponent, pathMatch:'full', },
   { path: 'profile', component: ProfileComponent, pathMatch:'full', },
-  { path: 'unauthorized', component: UnauthorizedComponent, pathMatch:'full', },
   {
     path:'admin' ,
     component:SidebarComponent, canActivate: [AuthGuard],
 
     children:[
-      {
-        path:'',
-        component: AdminDashboardComponent, 
-      },
       {
         path:'patient-manager',
         component: PatientManagerComponent
@@ -56,14 +48,6 @@ const routes: Routes = [
         component: EditPatientComponent
       },
       {
-        path:'issue-token',
-        component: IssueTokenComponent
-      },
-      {
-        path:'reserve-token',
-        component: ReserveTokenComponent
-      },
-      {
         path:'token-history',
         component: TokenHistoryComponent
       }
@@ -72,7 +56,7 @@ const routes: Routes = [
   },
   {
     path:'user',
-    component:UserSidebarComponent, 
+    component:UserSidebarComponent, canActivate: [UserGuard],
 
     children:[
       {
@@ -94,17 +78,6 @@ const routes: Routes = [
     ],
 
   }
-  // { path: 'user', component: BoardUserComponent },
-  // { path: 'admin', component: BoardAdminComponent },
-  // { path: 'patient-manager', component: PatientManagerComponent},
-  // { path: 'token-manager', component: TokenManagementComponent},
-  // { path: 'add-patient', component: AddPatientComponent},
-  // { path: 'edit-patient/:id', component: EditPatientComponent},
-  // { path: 'issue-token', component: IssueTokenComponent},
-  // { path: 'reserve-token', component: ReserveTokenComponent},
-  // { path: 'token-history', component: TokenHistoryComponent},
-  // { path: 'admin-dashboard', component: AdminDashboardComponent},
-  // { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

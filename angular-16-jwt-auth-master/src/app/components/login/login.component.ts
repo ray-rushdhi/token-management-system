@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AccountServiceService } from 'src/app/_services/account-service.service';
-import { AuthService } from 'src/app/_services/auth.service';
-import { StorageService } from 'src/app/_services/storage.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -25,23 +23,16 @@ export class LoginComponent implements OnInit {
   // roles: string[] = [];
 
   constructor(private authService: AuthService, 
-    private storageService: StorageService,
-    private loginService: LoginService,
+   private loginService: LoginService,
     private router: Router,
     private snack: MatSnackBar,
 ) { }
 
   ngOnInit() {
-    // if (this.storageService.isLoggedIn()) {
-    //   this.isLoggedIn = true;
-    //   this.roles = this.storageService.getUser().roles;
-    // }
+
   }
 
-  // loginObj: any = {
-  //   username: '',
-  //   password: ''
-  // };
+  
 
   onSubmit() {
 

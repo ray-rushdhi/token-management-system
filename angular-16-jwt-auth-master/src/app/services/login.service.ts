@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environment/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -11,10 +12,12 @@ const httpOptions = {
 })
 export class LoginService {
 
+  private apiServerUrl = environment.apiBaseUrl;
+
   constructor(private http: HttpClient) { }
 
   onLogin(username: string, password: string) : Observable<any> {
-    return this.http.post('http://localhost:8080/api/auth/signin',
+    return this.http.post(`${this.apiServerUrl}/auth/signin`,
     {
       username,
       password,

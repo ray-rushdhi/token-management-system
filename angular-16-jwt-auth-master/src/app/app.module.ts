@@ -31,27 +31,26 @@ import { DatePipe } from '@angular/common';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import { UserSidebarComponent } from './components/user/user-sidebar/user-sidebar.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CustomInterceptor } from './_helpers/custom.interceptor';
-import { PatientManagerComponent } from './components/admin/patient-manager/patient-manager.component';
-import { DetailsComponent } from './components/admin/details/details.component';
-import { EditPatientComponent } from './components/admin/edit-patient/edit-patient.component';
-import { TokenManagementComponent } from './components/admin/token-management/token-management.component';
-import { AddPatientComponent } from './components/admin/add-patient/add-patient.component';
-import { IssueTokenComponent } from './components/admin/issue-token/issue-token.component';
-import { ReserveTokenComponent } from './components/admin/reserve-token/reserve-token.component';
-import { ReserveTokenAdminComponent } from './components/admin/reserve-token-admin/reserve-token-admin.component';
-import { TokenHistoryComponent } from './components/admin/token-history/token-history.component';
-import { NavbarComponent } from './components/admin/navbar/navbar.component';
-import { DetailsDialogComponent } from './components/admin/details-dialog/details-dialog.component';
-import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
-import { PatientReserveComponent } from './components/user/patient-reserve/patient-reserve.component';
-import { PatientHistoryComponent } from './components/user/patient-history/patient-history.component';
-import { UserDashboardComponent } from './components/user/user-dashboard/user-dashboard.component';
+
+import { AddPatientComponent } from './components/add-patient/add-patient.component';
+
 import { TokenSortPipe } from './_helpers/token-sort.pipe';
 import { SearchPipe } from './_helpers/search.pipe';
-import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
-import { ChangePasswordComponent } from './components/user/change-password/change-password.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { TokenManagementComponent } from './components/token-management/token-management.component';
+import { DetailsComponent } from './components/details/details.component';
+import { UserSidebarComponent } from './components/user-sidebar/user-sidebar.component';
+import { DetailsDialogComponent } from './components/details-dialog/details-dialog.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { TokenHistoryComponent } from './components/token-history/token-history.component';
+import { ReserveTokenAdminComponent } from './components/reserve-token-admin/reserve-token-admin.component';
+import { EditPatientComponent } from './components/edit-patient/edit-patient.component';
+import { PatientReserveComponent } from './components/patient-reserve/patient-reserve.component';
+import { PatientHistoryComponent } from './components/patient-history/patient-history.component';
+import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
+import { PatientManagerComponent } from './components/patient-manager/patient-manager.component';
 
 
 
@@ -63,7 +62,6 @@ import { ChangePasswordComponent } from './components/user/change-password/chang
     TokenManagementComponent,
     SearchPipe,
     AddPatientComponent, 
-    AdminDashboardComponent,
     DetailsComponent,
     LoginComponent,
     RegisterComponent,
@@ -74,14 +72,11 @@ import { ChangePasswordComponent } from './components/user/change-password/chang
     NavbarComponent,
     TokenHistoryComponent,
     ReserveTokenAdminComponent,
-    ReserveTokenComponent,
-    IssueTokenComponent,
     EditPatientComponent,
     PatientReserveComponent,
     PatientHistoryComponent,
     UserDashboardComponent,
     TokenSortPipe,
-    UnauthorizedComponent,
     ChangePasswordComponent,
   ],
   imports: [
@@ -108,6 +103,7 @@ import { ChangePasswordComponent } from './components/user/change-password/chang
     MatPaginatorModule,
     MatTableModule,
     BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {

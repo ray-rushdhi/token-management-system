@@ -16,9 +16,13 @@
           <p><strong>Date of Birth:</strong> {{ newUser?.dob }}</p>
           <p><strong>Contact Number::</strong> {{ newUser?.contactNum }}</p>
           <p><strong>Email:</strong> {{ newUser?.email }}</p>
-          <p><strong>Roles:</strong></p>
-          <ul>
-            <li *ngFor="let role of currentUser.roles">{{ role }}</li>
+          <p *ngIf="currentUser.roles.includes('ROLE_ADMIN')">
+            <strong>Roles:</strong>
+          </p>
+          <ul *ngIf="currentUser.roles.includes('ROLE_ADMIN')">
+            <li *ngFor="let role of currentUser.roles">
+              {{ convertRoleName(role) }}
+            </li>
           </ul>
         </div>
         <div class="col-md-6">
@@ -26,7 +30,6 @@
           <button class="btn btn-secondary" (click)="changePassword()">
             Change Password
           </button>
-          <!-- Add more buttons or actions here -->
         </div>
       </div>
     </div>
@@ -36,26 +39,3 @@
 <ng-template #loggedOut>
   <p class="text-center mt-5">Please log in to view your profile.</p>
 </ng-template>
-
-<!-- <div class="container" *ngIf="currentUser; else loggedOut">
-  <header class="jumbotron">
-    <h3>
-      <strong>{{ currentUser.username }}</strong> Profile
-    </h3>
-  </header>
-  <p>
-    <strong>Email:</strong>
-    {{ currentUser.email }}
-  </p>
-  <strong>Roles:</strong>
-  <ul>
-    <li *ngFor="let role of currentUser.roles">
-      {{ role }}
-    </li>
-  </ul>
-  <button class="btn btn-primary" (click)="changePassword()">
-    Change Password
-  </button>
-</div>
-
-<ng-template #loggedOut> Please login. </ng-template> -->

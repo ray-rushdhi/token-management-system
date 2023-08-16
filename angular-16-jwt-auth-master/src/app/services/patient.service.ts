@@ -2,8 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/app/environment/environment";
-import { Patient, PatientUpdateRequest } from "../components/admin/patient-manager/patient";
 import { PassChangeRequest } from "../requests/PassChangeRequest";
+import { Patient, PatientUpdateRequest } from "../components/patient-manager/patient";
 
 @Injectable({
     providedIn: 'root'

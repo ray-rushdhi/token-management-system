@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StorageService } from 'src/app/_services/storage.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PatientService } from 'src/app/services/patient.service';
-import { Patient } from '../admin/patient-manager/patient';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Patient } from '../patient-manager/patient';
 
 @Component({
   selector: 'app-profile',
@@ -43,5 +42,16 @@ export class ProfileComponent implements OnInit {
   changePassword() {
     // Navigate to the change password page
     this.router.navigate(['user/change-password']);
+  }
+  
+  convertRoleName(role: string): string {
+    // Replace this with your actual mapping logic
+    if (role === 'ROLE_ADMIN') {
+      return 'Admin';
+    } else if (role === 'ROLE_USER') {
+      return 'User';
+    } else {
+      return role; // Return the role as-is if no conversion is needed
+    }
   }
 }

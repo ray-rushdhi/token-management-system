@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
-import { PatientService } from '../../services/patient.service';
 import { Patient } from '../patient-manager/patient';
+import { PatientService } from 'src/app/services/patient.service';
 import { AuthService } from 'src/app/services/auth.service';
 
+
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  selector: 'app-user-sidebar',
+  templateUrl: './user-sidebar.component.html',
+  styleUrls: ['./user-sidebar.component.css']
 })
-export class SidebarComponent {
+export class UserSidebarComponent {
+
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
@@ -27,6 +29,7 @@ export class SidebarComponent {
   ) {}
 
   ngOnInit(): void {
+  
 
   }
 
@@ -41,21 +44,14 @@ export class SidebarComponent {
     );
   }
 
-  logout(): void {
 
+
+  openReserve() {
+    this.router.navigate(['user/patient-reserve']);
   }
 
-  openPatientManager() {
-    this.router.navigate(['admin/patient-manager']);
+  openHistory() {
+    this.router.navigate(['user/patient-history']);
   }
-
-  openTokenManager() {
-    this.router.navigate(['admin/token-manager']);
-  }
-
-  openTokenHistory() {
-    this.router.navigate(['admin/token-history']);
-  }
-
 
 }

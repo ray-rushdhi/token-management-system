@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Token, TokenImplementation } from '../components/admin/token-management/token';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environment/environment';
+import { Token, TokenImplementation } from '../components/token-management/token';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,11 @@ export class TokenService {
   }
 
   public findTokenById(tokenNum: number): Observable<Token> {
-    return this.http.get<Token>(`${this.apiServerUrl}/tokens/find/{id}`);
+    return this.http.get<Token>(`${this.apiServerUrl}/tokens/find/${tokenNum}`);
   }
 
-  // public createToken(tokenImplementation: TokenImplementation): Observable<Token> {
-  //   return this.http.post<TokenImplementation>(`${this.apiServerUrl}/tokens/reserve`, tokenImplementation)
-  // }
 
   public createToken(tokenImplementation: TokenImplementation): Observable<HttpResponse<any>> {
-    // Use the 'observe' option with 'response' to access the full response including status code
     return this.http.post<TokenImplementation>(
       `${this.apiServerUrl}/tokens/reserve`,
       tokenImplementation,
@@ -60,15 +56,14 @@ export class TokenService {
 
   public reserveTokenAdmin(reservedById: number, tokenNum: number): Observable<string> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const options = { headers: headers, responseType: 'text' as 'json' }; // Set responseType to 'text'
+    const options = { headers: headers, responseType: 'text' as 'json' }; 
 
     const body = {
-      // Your request body here
       reservedById: reservedById,
       tokenNum: tokenNum
     };
 
-    return this.http.post<string>(`${this.apiServerUrl}/tokens/reserve-admin`, body, options); // Return type as 'string'
+    return this.http.post<string>(`${this.apiServerUrl}/tokens/reserve-admin`, body, options); 
   }
 
   public deleteToken (tokenNum: number): Observable<void> {
@@ -78,13 +73,5 @@ export class TokenService {
   public findAvailability (date: string): Observable<number> {
     return this.http.post<number>(`${this.apiServerUrl}/tokens/availability`, date);
   }
-
-  // public reserveTokenAdmin(tokenNum: number, reservedByID: number) {
-  //   const requestBody = {
-  //     tokenNum: tokenNum,
-  //     reservedByID: reservedByID,
-  //   };
-  //   return this.http.post<string>(`${this.apiServerUrl}/tokens/reserve-admin`, requestBody);
-  // }
 
 }
