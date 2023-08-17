@@ -48,7 +48,7 @@ export class TokenHistoryComponent {
       (response: Patient[]) => {
         this.patients = response;
         this.dataSource.data = this.patients; 
-        this.dataSource.paginator = this.paginator;// Update the data source
+        this.dataSource.paginator = this.paginator;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

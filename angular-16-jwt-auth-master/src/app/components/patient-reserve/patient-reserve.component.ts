@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { Token, TokenImplementation } from '../token-management/token';
 import { DateAdapter } from '@angular/material/core';
 import { DateFilterFn, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import {Moment} from 'moment/moment';
+import * as moment from 'moment';
 
 
 @Component({
@@ -19,10 +21,12 @@ export class PatientReserveComponent {
   selectedDate: string | undefined;
   availableTokens: number | undefined;
   public tokens: any[] = [];
-  showAvailability: boolean = false; // Default value is false
+  showAvailability: boolean = false; 
   availability: number = 0;
   reservedByID?: number;
   noDateError?: string;
+
+  minDate?: string;
 
   loading = false;
 
@@ -30,25 +34,46 @@ export class PatientReserveComponent {
     private snackBar: MatSnackBar, private dateAdapter: DateAdapter<Date> ){}
 
   ngOnInit() {
-    // this.selectedDate = new Date();
+
+    this.getDate();
     this.onDateChange();
     console.log(this.selectedDate);
 
     const userDataString = localStorage.getItem('user');
 
     if (userDataString) {
-      // Parse the JSON string into an object
       const userData = JSON.parse(userDataString);
 
-      // Access the user's ID from the parsed object
       this.reservedByID = userData.id;
     }
 
   }
 
+  getDate() {
+    let date: any = new Date();
+    console.log(date);
+    let todate: any = date.getDate();
+    console.log(todate);
+    if (todate < 10) {
+      todate = '0' + todate;
+    }
+
+    let month: any = date.getMonth() + 1;
+    console.log(month);
+    if (month < 10) {
+      month = '0' + month;
+    }
+
+    let year: any = date.getFullYear();
+    console.log(year);
+
+    this.minDate = year + '-' + month + '-' + todate;
+    console.log(this.minDate);
+
+  }
+
   onDateChange(): void {
-    // Format the selected date and store it in the selectedDay variable
-    // this.selectedDate = this.selectedDate ? new Date(this.selectedDate) : null;
+
     const queryDate: string = this.selectedDate
       ? this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!
       : '';
@@ -66,12 +91,11 @@ export class PatientReserveComponent {
         (response: Token[]) => {
           this.tokens = response;
   
-          // Perform availability calculation and other logic here
           this.availability = 20 - this.tokens.length;
           console.log(this.tokens);
           console.log(queryDate);
   
-          this.showAvailability = true; // Move this line here if necessary
+          this.showAvailability = true; 
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -108,12 +132,12 @@ export class PatientReserveComponent {
   
        this.tokenService.createToken(myToken).subscribe(
         response => {
-            console.log(response.body); // Check the response in the console
+            console.log(response.body);
             
-            // Parse the JSON response
+            
             const jsonResponse = response.body;
             
-            // Check the message property in the JSON response
+            
             if (jsonResponse && jsonResponse.message === 'Token reserved successfully') {
                 this.snackBar.open('Token reserved successfully', 'Close');
             } else {

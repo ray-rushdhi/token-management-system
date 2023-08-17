@@ -32,36 +32,19 @@ export class EditPatientComponent implements OnInit {
 
   patientId: number | undefined;
 
-  // editPatientForm: FormGroup;
-
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private patientService: PatientService
   ) {this.patientId = undefined;}
-  // {
-  //   this.editPatientForm = this.formBuilder.group({
-  //     firstName: [''],
-  //     lastName: [''],
-  //     gender: [''],
-  //     dob: [''],
-  //     contactNum: [''],
-  //     email: [''],
-  //     username: ['']
-  //   });
-
-  //   this.pat/ientId = null; // Initialize it as null initially
-  // }
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam !== null) {
       this.patientId = +idParam;
       console.log("patient ID: ", this.patientId)
-      // Fetch patient data using this.patientId and pre-fill the form
       this.fetchPatientData(this.patientId);
     } else {
-      // Handle the case where the id parameter is missing
     }
   }
 
@@ -80,7 +63,6 @@ export class EditPatientComponent implements OnInit {
         };
       },
       (error: HttpErrorResponse) => {
-        // Handle the error
       }
     );
   }

@@ -21,7 +21,6 @@ import { PatientService } from 'src/app/services/patient.service';
 
 export class TokenManagementComponent {
 
-  // selectedDate: Date = new Date();
   selectedDate: Date | null = null;
 
   searchText=""
@@ -48,7 +47,6 @@ export class TokenManagementComponent {
   }
 
   onDateChange(): void {
-    // Format the selected date and store it in the selectedDay variable
     this.selectedDate = this.selectedDate ? new Date(this.selectedDate) : null;
     this.getTokens();
     const queryDate: string = this.selectedDate
@@ -58,7 +56,6 @@ export class TokenManagementComponent {
       this.tokenService.findByDate(queryDate).subscribe(
         (response: Token[]) => {
           this.tokens = response;
-          // Perform availability calculation and other logic here
           this.availability = 20 - this.tokens.length;
         },
         (error: HttpErrorResponse) => {
@@ -119,20 +116,16 @@ export class TokenManagementComponent {
       denyButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        // The user confirmed the deletion
         this.tokenService.deleteToken(tokenNum).subscribe(
           () => {
             console.log('Token removed successfully');
             window.location.reload();
-            // Optionally, you can update the patient list or perform any other actions upon successful removal.
           },
           (error) => {
             console.error('Error removing token:', error);
-            // Handle any error message or error handling logic here.
           }
         );
       } else if (result.isDenied) {
-        // The user denied the deletion
         console.log('Deletion canceled');
       }
     });
@@ -149,20 +142,16 @@ export class TokenManagementComponent {
       denyButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        // The user confirmed the deletion
         this.tokenService.validateToken(id).subscribe(
           () => {
             console.log('Token validated successfully');
             window.location.reload();
-            // Optionally, you can update the patient list or perform any other actions upon successful removal.
           },
           (error) => {
             console.error('Error validating token', error);
-            // Handle any error message or error handling logic here.
           }
         );
       } else if (result.isDenied) {
-        // The user denied the deletion
         console.log('Deletion canceled');
       }
     });
@@ -177,41 +166,21 @@ export class TokenManagementComponent {
       denyButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        // The user confirmed the deletion
         this.tokenService.invalidateToken(id).subscribe(
           () => {
             console.log('Token invalidated successfully');
             window.location.reload();
-            // Optionally, you can update the patient list or perform any other actions upon successful removal.
           },
           (error) => {
             console.error('Error invalidating token', error);
-            // Handle any error message or error handling logic here.
           }
         );
       } else if (result.isDenied) {
-        // The user denied the deletion
         console.log('Deletion canceled');
       }
     });
   }
 
-  // openReserveDialog(token: any): void {
-
-  //   const tokenNum = token.tokenNum;
-  //   console.log('Token number:', tokenNum);
-  //   const dialogRef = this.dialog.open(ReserveTokenComponent, {
-  //     width: '350px',
-
-  //     data: { tokenNum: tokenNum },
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     if (result) {
-  //       this.selectedDate = result;
-  //     }
-  //   });
-  // }
-
+  
   }
 

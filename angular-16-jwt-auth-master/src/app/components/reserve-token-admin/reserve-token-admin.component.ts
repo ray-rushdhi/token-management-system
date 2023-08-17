@@ -53,7 +53,7 @@ export class ReserveTokenAdminComponent {
     private patientService: PatientService
   ) {
    
-    this.selectedDate = data.queryDate || ''; // Assign selected date from the passed data
+    this.selectedDate = data.queryDate || ''; 
   }
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class ReserveTokenAdminComponent {
     this.patientService.getPatients().subscribe(
       (response: Patient[]) => {
         this.patients = response;
-        this.dataSource.data = this.patients; // Update the data source
+        this.dataSource.data = this.patients; 
         this.dataSource.paginator = this.paginator;
       },
       (error: HttpErrorResponse) => {
@@ -85,16 +85,16 @@ export class ReserveTokenAdminComponent {
   reserveToken(): void {
     this.loading = true;
     if (this.selectedPatient) {
-      // Use this.selectedPatient data to perform the reservation logic
+
       console.log("Selected Patient:", this.selectedPatient);
-      // ... Other reservation logic ...
+
     }
     this.reservedByID = this.selectedPatient?.id;
     console.log("Reserved by ID : ",this.reservedByID)
     console.log(this.selectedDate)
     if (this.reservedByID === undefined) {
-      this.snackBar.open('Please fill in all the required fields', 'Close'); // Display the error in a snackbar
-      return; // Don't proceed if any of the fields are empty
+      this.snackBar.open('Please fill in all the required fields', 'Close');
+      return; 
     }
   
     console.log('Selected Date:', this.selectedDate);
@@ -108,12 +108,12 @@ export class ReserveTokenAdminComponent {
   
     this.tokenService.createToken(myToken).subscribe(
       response => {
-          console.log(response.body); // Check the response in the console
+          console.log(response.body); 
           
-          // Parse the JSON response
+          
           const jsonResponse = response.body;
           
-          // Check the message property in the JSON response
+
           if (jsonResponse && jsonResponse.message === 'Token reserved successfully') {
               this.snackBar.open('Token reserved successfully', 'Close');
               window.location.reload();
@@ -132,7 +132,7 @@ export class ReserveTokenAdminComponent {
     console.log("Loading stopped")
   });;
   
-    // Don't close the dialog if there are validation errors
+
     if (this.reservedByID) {
       this.dialogRef.close();
     }

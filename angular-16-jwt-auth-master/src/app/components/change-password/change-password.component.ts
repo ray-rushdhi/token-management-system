@@ -29,10 +29,8 @@ export class ChangePasswordComponent {
     const userDataString = localStorage.getItem('user');
 
     if (userDataString) {
-      // Parse the JSON string into an object
       const userData = JSON.parse(userDataString);
 
-      // Access the user's ID from the parsed object
       this.patientID = userData.id;
     }
   }
@@ -51,7 +49,6 @@ export class ChangePasswordComponent {
       this.authService.changePassword(passChangeRequest).subscribe({
         next: data => {
           console.log(data);
-          // Reset error-related variables
           this.errorMessage = '';
           this.isFailed = false;
           this.snack.open("Password changed successfully",'Close',{
@@ -61,7 +58,7 @@ export class ChangePasswordComponent {
         error: err => {
           this.errorMessage = err.error.message;
           this.isFailed = true;
-          console.error(err); // Log the error for debugging
+          console.error(err); 
         }
       })
     }

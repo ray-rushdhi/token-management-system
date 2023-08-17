@@ -79,24 +79,30 @@
             <div *ngIf="gender.errors['required']">Gender is required</div>
           </div>
         </div>
+
         <div class="form-group">
-          <label for="dob">Date of Birth (yyyy-mm-dd)</label>
+          <label for="dob">Date of Birth</label>
           <input
-            type="text"
-            class="form-control"
-            name="dob"
+            matInput
+            [matDatepicker]="dobPicker"
+            placeholder="yyyy-mm-dd"
             [(ngModel)]="form.dob"
+            name="dob"
             required
-            pattern="^\d{4}-\d{2}-\d{2}$"
             #dob="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && dob.errors }"
           />
-          <div class="invalid-feedback" *ngIf="dob.errors && f.submitted">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="dobPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker></mat-datepicker>
+          <mat-error *ngIf="dob.errors && f.submitted">
             <div *ngIf="dob.errors['required']">Date of Birth is required</div>
-            <div *ngIf="dob.errors['pattern']">
+            <div *ngIf="dob.errors['matDatepickerParse']">
               Date of Birth must be in the format yyyy-mm-dd
             </div>
-          </div>
+          </mat-error>
         </div>
 
         <div class="form-group">

@@ -40,18 +40,17 @@ export class ProfileComponent implements OnInit {
 
 
   changePassword() {
-    // Navigate to the change password page
     this.router.navigate(['user/change-password']);
   }
   
   convertRoleName(role: string): string {
-    // Replace this with your actual mapping logic
+
     if (role === 'ROLE_ADMIN') {
       return 'Admin';
     } else if (role === 'ROLE_USER') {
       return 'User';
     } else {
-      return role; // Return the role as-is if no conversion is needed
+      return role; 
     }
   }
 }

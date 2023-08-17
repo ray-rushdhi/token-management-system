@@ -25,6 +25,8 @@ export class PatientManagerComponent {
 
   public patients: Patient[] = [];
 
+  isVisible : boolean = true;
+
 
   constructor(private patientService: PatientService, private dialog: MatDialog, private loginService: LoginService){}
   

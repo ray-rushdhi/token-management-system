@@ -80,23 +80,28 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="dob">Date of Birth (yyyy-mm-dd)</label>
+          <label for="dob">Date of Birth</label>
           <input
-            type="text"
-            class="form-control"
-            name="dob"
+            matInput
+            [matDatepicker]="dobPicker"
+            placeholder="yyyy-mm-dd"
             [(ngModel)]="form.dob"
+            name="dob"
             required
-            pattern="^\d{4}-\d{2}-\d{2}$"
             #dob="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && dob.errors }"
           />
-          <div class="invalid-feedback" *ngIf="dob.errors && f.submitted">
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="dobPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker></mat-datepicker>
+          <mat-error *ngIf="dob.errors && f.submitted">
             <div *ngIf="dob.errors['required']">Date of Birth is required</div>
-            <div *ngIf="dob.errors['pattern']">
+            <div *ngIf="dob.errors['matDatepickerParse']">
               Date of Birth must be in the format yyyy-mm-dd
             </div>
-          </div>
+          </mat-error>
         </div>
 
         <div class="form-group">
@@ -182,38 +187,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="container">
-  <h1>Edit Patient Details</h1>
-  <form [formGroup]="editPatientForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="firstName">First Name:</label>
-      <input type="text" formControlName="firstName" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name:</label>
-      <input type="text" formControlName="lastName" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="gender">Gender:</label>
-      <input type="text" formControlName="gender" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="dob">Date of Birth:</label>
-      <input type="date" formControlName="dob" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="contactNum">Contact Number:</label>
-      <input type="text" formControlName="contactNum" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" formControlName="email" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" formControlName="username" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-  </form>
-</div> -->

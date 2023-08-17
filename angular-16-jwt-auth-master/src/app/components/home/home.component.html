@@ -1,16 +1,9 @@
 <div class="center-container" [class.logged-in]="isLoggedIn()">
   <div class="container">
-    <!-- <header class="jumbotron">
-      <p>HOME</p>
-    </header> -->
-
     <div *ngIf="isLoggedIn()">
       <div *ngIf="isAdmin()">
         <app-sidebar></app-sidebar>
       </div>
-      <!-- <app-sidebar></app-sidebar>
-      <app-user-sidebar></app-user-sidebar> -->
-
       <div *ngIf="isUser()">
         <app-user-sidebar></app-user-sidebar>
       </div>

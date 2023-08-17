@@ -1,18 +1,6 @@
 <h2 mat-dialog-title>RESERVE TOKEN</h2>
 <mat-dialog-content>
-  <!-- <mat-form-field>
-    <mat-label>Patient ID</mat-label>
-    <input matInput [(ngModel)]="reservedByID" required />
-    <mat-error *ngIf="!reservedByID">Patient ID is required</mat-error>
-  </mat-form-field> -->
   <div class="input-group">
-    <!-- <input
-      type="text"
-      id="form1"
-      class="form-control"
-      placeholder="Search"
-      [(ngModel)]="searchText"
-    /> -->
     <input
       placeholder="Search patient"
       matInput
@@ -22,25 +10,6 @@
       <i class="bi bi-search"></i>
     </button>
   </div>
-
-  <!-- <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let patient of patients | search : searchText; let i = index"
-        [ngClass]="{ 'selected-row': patient === selectedPatient }"
-        (click)="selectPatient(patient)"
-      >
-        <td>{{ patient.id }}</td>
-        <td>{{ patient.firstName + " " + patient.lastName }}</td>
-      </tr>
-    </tbody>
-  </table> -->
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef><strong>ID</strong></mat-header-cell>

@@ -36,9 +36,7 @@ export class LoginService {
 
   public getUser() {
     let userString = localStorage.getItem('user');
-    //return userString ? JSON.parse(userString) : null;
 
-    //let userStr = localStorage.getItem("user");
     if(userString!=null)
     {
         return JSON.parse(userString);
@@ -50,7 +48,7 @@ export class LoginService {
 
   public isLoggedIn(){
     let tokenStr=localStorage.getItem('token');
-    //this.loginStatusSubject.next(true);
+  
     if(tokenStr==undefined || tokenStr == '' || tokenStr == null)
     {
       return false;
@@ -59,7 +57,6 @@ export class LoginService {
     }
    }
 
-  // Clear token and user details from local storage on logout
   public logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
