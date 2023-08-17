@@ -1,9 +1,7 @@
 package com.hSenid.demo.services;
 
 import com.hSenid.demo.exception.UserNotFoundException;
-import com.hSenid.demo.models.Token;
-import com.hSenid.demo.models.User;
-import com.hSenid.demo.models.UserState;
+import com.hSenid.demo.models.*;
 import com.hSenid.demo.payload.request.PassChangeRequest;
 import com.hSenid.demo.payload.request.PatientUpdateRequest;
 import com.hSenid.demo.payload.response.UserResponse;
@@ -43,11 +41,28 @@ public class UserService {
 
     public List<UserResponse> findAllUsers() {
         List<User> users = userRepository.findUsersByState(UserState.ACTIVE);
-        List<UserResponse> userResponseList = new ArrayList<>();
+        List<User> comUsers = new ArrayList<>();
+
         for (User user : users) {
-            userResponseList.add(new UserResponse(user.getId(),user.getFirstName(), user.getLastName(), user.getGender(),
-                    user.getDob(),user.getContactNum(),user.getEmail(), user.getRoles()));
+            boolean isAdmin = false;
+
+            for (Role role : user.getRoles()) {
+                if (role.getName() == ERole.ROLE_ADMIN) {
+                    isAdmin = true;
+                    break;
+                }
+            }
+            if (!isAdmin) {
+                comUsers.add(user);
+            }
         }
+
+        List<UserResponse> userResponseList = new ArrayList<>();
+        for (User user : comUsers) {
+            userResponseList.add(new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getGender(),
+                    user.getDob(), user.getContactNum(), user.getEmail(),user.getUsername(), user.getRoles()));
+        }
+
         return userResponseList;
     }
 
@@ -57,14 +72,6 @@ public class UserService {
         logger.info("ID for the User updated automatically");
         return userRepository.save(user);
     }
-
-//    public void deleteUser(int id) {
-//        Optional<User> user = userRepository.findUserById(id);
-//        user.get().setState(UserState.INACTIVE);
-//        userRepository.save(user);
-//        logger.info("User of ID {} has been successfully deleted", id);
-//        logger.info("User of ID {} has been deemed inactive", id);
-//    }
 
     public void deleteUser(int id) {
         logger.info("User of ID {} has been deemed inactive", id);

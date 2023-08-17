@@ -15,6 +15,7 @@ public record UserResponse(
         LocalDate dob,
         Long contactNum,
         String email,
+        String username,
         Set<Role> roles
 
 ) {

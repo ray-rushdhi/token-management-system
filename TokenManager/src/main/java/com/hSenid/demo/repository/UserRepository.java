@@ -1,5 +1,7 @@
 package com.hSenid.demo.repository;
 
+import com.hSenid.demo.models.ERole;
+import com.hSenid.demo.models.Role;
 import com.hSenid.demo.models.User;
 import com.hSenid.demo.models.UserState;
 import org.springframework.data.mongodb.repository.MongoRepository;
