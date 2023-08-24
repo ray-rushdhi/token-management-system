@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Patient, PatientUpdateRequest } from '../patient-manager/patient';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Gender } from '../patient-manager/gender.enum';
+import { Gender } from '../../models/gender.enum';
 import { PatientService } from 'src/app/services/patient.service';
+import { Patient, PatientUpdateRequest } from 'src/app/models/patient';
 
 @Component({
   selector: 'app-edit-patient',

@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Patient } from './patient';
 import { DetailsDialogComponent } from '../details-dialog/details-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { PatientService } from 'src/app/services/patient.service';
 import { LoginService } from 'src/app/services/login.service';
+import { Patient } from 'src/app/models/patient';
 
 @Component({
   selector: 'app-patient-manager',

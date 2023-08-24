@@ -1,16 +1,16 @@
 
-import { TokenState } from '../token-management/tokenState.enum';
+import { TokenState } from '../../models/tokenState.enum';
 import { Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
-import { TokenImplementation } from '../token-management/token';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Patient } from '../patient-manager/patient';
 import { PatientService } from 'src/app/services/patient.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { TokenService } from 'src/app/services/token.service';
+import { Patient } from 'src/app/models/patient';
+import { TokenImplementation } from 'src/app/models/token';
 
 @Component({
   selector: 'app-reserve-token-admin',

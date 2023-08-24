@@ -6,8 +6,9 @@ import com.hSenid.demo.models.User;
 import com.hSenid.demo.models.Token;
 import com.hSenid.demo.models.TokenState;
 import com.hSenid.demo.payload.request.TokenRequest;
-import com.hSenid.demo.repository.UserRepository;
 import com.hSenid.demo.repository.TokenRepository;
+import com.hSenid.demo.repository.UserRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

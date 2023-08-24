@@ -4,11 +4,11 @@ import { TokenService } from 'src/app/services/token.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
-import { Token, TokenImplementation } from '../token-management/token';
 import { DateAdapter } from '@angular/material/core';
 import { DateFilterFn, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import {Moment} from 'moment/moment';
 import * as moment from 'moment';
+import { Token, TokenImplementation } from 'src/app/models/token';
 
 
 @Component({

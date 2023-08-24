@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { Token } from 'src/app/models/token';
 import { TokenService } from 'src/app/services/token.service';
 import Swal from 'sweetalert2';
-import { Token } from '../token-management/token';
 
 @Component({
   selector: 'app-patient-history',

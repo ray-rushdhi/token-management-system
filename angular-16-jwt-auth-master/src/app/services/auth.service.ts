@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PassChangeRequest } from '../requests/PassChangeRequest';
-import { Gender } from '../components/patient-manager/gender.enum';
+import { Gender } from '../models/gender.enum';
 import { environment } from '../environment/environment';
 
 const AUTH_API = 'http://localhost:8080/api/auth/';

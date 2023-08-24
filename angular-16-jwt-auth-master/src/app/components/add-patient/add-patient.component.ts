@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Gender } from '../patient-manager/gender.enum';
+import { Gender } from '../../models/gender.enum';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

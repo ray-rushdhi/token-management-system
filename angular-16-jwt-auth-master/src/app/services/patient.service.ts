@@ -2,8 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/app/environment/environment";
-import { PassChangeRequest } from "../requests/PassChangeRequest";
-import { Patient, PatientUpdateRequest } from "../components/patient-manager/patient";
+import { Patient, PatientUpdateRequest } from "../models/patient";
 
 @Injectable({
     providedIn: 'root'
@@ -34,6 +33,5 @@ export class PatientService {
   public deletePatient (patientId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/patients/delete/${patientId}`);
   }
-
   
 }

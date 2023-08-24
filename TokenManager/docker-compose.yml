@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongodb
+
+
+volumes:
+  mongodb_data:
+

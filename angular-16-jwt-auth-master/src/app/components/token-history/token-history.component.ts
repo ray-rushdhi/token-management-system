@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { Token } from '../token-management/token';
 import { MatTableDataSource } from '@angular/material/table';
-import { Patient } from '../patient-manager/patient';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PatientService } from 'src/app/services/patient.service';
 import { TokenService } from 'src/app/services/token.service';
+import { Patient } from 'src/app/models/patient';
+import { Token } from 'src/app/models/token';
 
 @Component({
   selector: 'app-token-history',

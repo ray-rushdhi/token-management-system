@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Patient } from '../patient-manager/patient';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { Route, Router } from '@angular/router';
 import { PatientService } from 'src/app/services/patient.service';
+import { Patient } from 'src/app/models/patient';
 
 @Component({
   selector: 'app-navbar',

@@ -1,4 +1,3 @@
-import { Token } from './token'
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { Component, Inject } from '@angular/core';
@@ -11,6 +10,7 @@ import { ReserveTokenAdminComponent } from '../reserve-token-admin/reserve-token
 import { TokenSortPipe } from 'src/app/_helpers/token-sort.pipe';
 import { TokenService } from 'src/app/services/token.service';
 import { PatientService } from 'src/app/services/patient.service';
+import { Token } from 'src/app/models/token';
 
 
 @Component({

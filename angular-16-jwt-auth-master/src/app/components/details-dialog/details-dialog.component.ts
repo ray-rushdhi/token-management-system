@@ -4,9 +4,9 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal  from 'sweetalert2';
-import { Patient } from '../patient-manager/patient';
 import { PatientService } from 'src/app/services/patient.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Patient } from 'src/app/models/patient';
 
 
 @Component({

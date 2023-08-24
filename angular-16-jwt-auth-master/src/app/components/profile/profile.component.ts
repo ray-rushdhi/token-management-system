@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Patient } from '../patient-manager/patient';
+import { Patient } from 'src/app/models/patient';
 
 @Component({
   selector: 'app-profile',

@@ -3,8 +3,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { PatientService } from '../../services/patient.service';
-import { Patient } from '../patient-manager/patient';
 import { AuthService } from 'src/app/services/auth.service';
+import { Patient } from 'src/app/models/patient';
 
 @Component({
   selector: 'app-sidebar',
